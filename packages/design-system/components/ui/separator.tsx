@@ -1,8 +1,6 @@
-'use client';
-
-import * as React from 'react';
-import { cn } from '@org/design-system/utils/class-merge';
-import { Separator as SeparatorPrimitive } from '@base-ui-components/react/separator';
+import { Separator as SeparatorPrimitive } from '@base-ui-components/react/separator'
+import { cn } from '@org/design-system/utils/class-merge'
+import type * as React from 'react'
 
 function Separator({
   className,
@@ -13,10 +11,14 @@ function Separator({
     <SeparatorPrimitive
       data-slot="separator"
       orientation={orientation}
-      className={cn('shrink-0 bg-border', orientation === 'horizontal' ? 'h-px w-full' : 'h-full w-px', className)}
+      className={cn(
+        'shrink-0 bg-border',
+        orientation === 'horizontal' ? 'h-px w-full' : 'h-full w-px',
+        className,
+      )}
       {...props}
     />
-  );
+  )
 }
 
-export { Separator };
+export { Separator }
