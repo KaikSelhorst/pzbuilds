@@ -424,7 +424,7 @@ function Button({
   const el = renderElement(
     asChild,
     children,
-    render || <button type="button" />,
+    render || <button type={props.type} />,
   )
   const fnProps = mergeElementProps(asChild, children, defaultProps, props)
 
