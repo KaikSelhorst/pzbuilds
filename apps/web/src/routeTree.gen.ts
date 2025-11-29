@@ -9,38 +9,73 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './pages/__root'
+import { Route as ProfileLayoutRouteImport } from './pages/profile/layout'
 import { Route as IndexRouteImport } from './pages/index'
+import { Route as ProfileModsRouteImport } from './pages/profile/mods'
+import { Route as ProfileBuildsRouteImport } from './pages/profile/builds'
 
+const ProfileLayoutRoute = ProfileLayoutRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileModsRoute = ProfileModsRouteImport.update({
+  id: '/mods',
+  path: '/mods',
+  getParentRoute: () => ProfileLayoutRoute,
+} as any)
+const ProfileBuildsRoute = ProfileBuildsRouteImport.update({
+  id: '/builds',
+  path: '/builds',
+  getParentRoute: () => ProfileLayoutRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/profile': typeof ProfileLayoutRouteWithChildren
+  '/profile/builds': typeof ProfileBuildsRoute
+  '/profile/mods': typeof ProfileModsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/profile': typeof ProfileLayoutRouteWithChildren
+  '/profile/builds': typeof ProfileBuildsRoute
+  '/profile/mods': typeof ProfileModsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/profile': typeof ProfileLayoutRouteWithChildren
+  '/profile/builds': typeof ProfileBuildsRoute
+  '/profile/mods': typeof ProfileModsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/profile' | '/profile/builds' | '/profile/mods'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/profile' | '/profile/builds' | '/profile/mods'
+  id: '__root__' | '/' | '/profile' | '/profile/builds' | '/profile/mods'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ProfileLayoutRoute: typeof ProfileLayoutRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +83,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile/mods': {
+      id: '/profile/mods'
+      path: '/mods'
+      fullPath: '/profile/mods'
+      preLoaderRoute: typeof ProfileModsRouteImport
+      parentRoute: typeof ProfileLayoutRoute
+    }
+    '/profile/builds': {
+      id: '/profile/builds'
+      path: '/builds'
+      fullPath: '/profile/builds'
+      preLoaderRoute: typeof ProfileBuildsRouteImport
+      parentRoute: typeof ProfileLayoutRoute
+    }
   }
 }
 
+interface ProfileLayoutRouteChildren {
+  ProfileBuildsRoute: typeof ProfileBuildsRoute
+  ProfileModsRoute: typeof ProfileModsRoute
+}
+
+const ProfileLayoutRouteChildren: ProfileLayoutRouteChildren = {
+  ProfileBuildsRoute: ProfileBuildsRoute,
+  ProfileModsRoute: ProfileModsRoute,
+}
+
+const ProfileLayoutRouteWithChildren = ProfileLayoutRoute._addFileChildren(
+  ProfileLayoutRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ProfileLayoutRoute: ProfileLayoutRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
