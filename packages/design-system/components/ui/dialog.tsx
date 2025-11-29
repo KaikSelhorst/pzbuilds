@@ -43,7 +43,7 @@ function DialogClose({
     <DialogPrimitive.Close
       data-slot="dialog-close"
       className={cn(
-        !props.render && buttonVariants({ variant: 'outline' }),
+        !props.render && buttonVariants({ variant: 'ghost' }),
         className,
       )}
       {...props}
@@ -51,7 +51,6 @@ function DialogClose({
   )
 }
 
-// Base UI Dialog Backdrop
 function DialogBackdrop({
   className,
   ...props
@@ -121,7 +120,7 @@ function DialogContent({
           <DialogPrimitive.Close
             data-slot="alert-dialog-dismiss"
             className={cn(
-              buttonVariants({ variant: 'dim', size: 'sm' }),
+              buttonVariants({ variant: 'ghost', size: 'sm' }),
               'absolute top-2.5 end-2.5',
               className,
             )}
