@@ -6,7 +6,8 @@
     "preview": "bun docker:up",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
-    "docker:kill": "docker compose down --volumes --remove-orphans"
+    "docker:kill": "docker compose down --volumes --remove-orphans",
+    "type:check": "tsc --noEmit"
   },
   "dependencies": {
     "@org/validation": "workspace:*"
