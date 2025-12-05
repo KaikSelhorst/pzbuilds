@@ -1,5 +1,5 @@
 import { Button } from '@org/design-system/components/ui/button'
-import { cn } from '@org/design-system/utils/class-merge'
+import { cn } from '@org/design-system/lib/utils'
 import { createLink, Link, type LinkComponent } from '@tanstack/react-router'
 
 interface ProfileNavbarProps extends React.ComponentProps<'nav'> {}
