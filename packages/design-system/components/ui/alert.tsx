@@ -1,4 +1,4 @@
-import { cn } from '@org/design-system/utils/class-merge'
+import { cn } from '@org/design-system/lib/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { X } from 'lucide-react'
 import type * as React from 'react'

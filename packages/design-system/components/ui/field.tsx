@@ -1,6 +1,6 @@
 import { Label } from '@org/design-system/components/ui/label'
 import { Separator } from '@org/design-system/components/ui/separator'
-import { cn } from '@org/design-system/utils/class-merge'
+import { cn } from '@org/design-system/lib/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { useMemo } from 'react'
 

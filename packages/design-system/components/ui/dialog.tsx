@@ -1,6 +1,6 @@
 import { Dialog as DialogPrimitive } from '@base-ui-components/react/dialog'
 import { buttonVariants } from '@org/design-system/components/ui/button'
-import { cn } from '@org/design-system/utils/class-merge'
+import { cn } from '@org/design-system/lib/utils'
 import { X } from 'lucide-react'
 import type * as React from 'react'
 
