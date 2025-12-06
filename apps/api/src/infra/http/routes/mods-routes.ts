@@ -1,6 +1,10 @@
 import { modsControllerFactory } from '@infra/http/controllers/factories'
 import type { App } from '@infra/http/server'
-import { createModSchema } from '@org/validation'
+import {
+  createModSchema,
+  updateModParamsSchema,
+  updateModSchema,
+} from '@org/validation'
 
 export function modsRoutes(app: App) {
   app.group('/mods', (route) => {
@@ -8,7 +12,6 @@ export function modsRoutes(app: App) {
       '/',
       async ({ status, body, user }) => {
         const res = await modsControllerFactory.createMod({ body, user })
-        console.log(res)
         return status(res.status, res.value)
       },
       {
@@ -16,6 +19,24 @@ export function modsRoutes(app: App) {
         body: createModSchema,
       },
     )
+
+    route.put(
+      '/:modId',
+      async ({ status, body, user, params }) => {
+        const res = await modsControllerFactory.updateMod({
+          body,
+          user,
+          params,
+        })
+        return status(res.status, res.value)
+      },
+      {
+        auth: true,
+        body: updateModSchema,
+        params: updateModParamsSchema,
+      },
+    )
+
     return route
   })
   return app

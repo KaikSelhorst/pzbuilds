@@ -32,6 +32,18 @@ export class ModEntity implements ModsInterface {
     }
   }
 
+  update(data: Pick<ModEntity, 'name'>) {
+    return new ModEntity({
+      id: this.id,
+      name: data.name,
+      createdAt: this.createdAt,
+      updatedAt: new Date(),
+      isOfficial: this.isOfficial,
+      steamModId: this.steamModId,
+      creatorId: this.creatorId,
+    })
+  }
+
   static create(props: {
     name: string
     steamModId: string
