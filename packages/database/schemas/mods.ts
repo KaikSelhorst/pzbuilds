@@ -1,7 +1,8 @@
 import type { InferSelectModel } from 'drizzle-orm'
-import { boolean, pgTable, text } from 'drizzle-orm/pg-core'
+import { boolean, pgTable, text, uuid } from 'drizzle-orm/pg-core'
 import { createdAt, id, updatedAt } from '../utils/schemas-types'
 import { steamMods } from './steam-mods'
+import { users } from './users'
 
 export const mods = pgTable('mods', {
   id,
@@ -10,6 +11,9 @@ export const mods = pgTable('mods', {
   steamModId: text('steam_mod_id')
     .notNull()
     .references(() => steamMods.id, { onDelete: 'cascade' }),
+  creatorId: uuid('creator_id')
+    .notNull()
+    .references(() => users.id, { onDelete: 'cascade' }),
   createdAt,
   updatedAt,
 })
