@@ -1,5 +1,6 @@
+import type { InferSelectModel } from 'drizzle-orm'
 import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
-import { createdAt, id, updatedAt } from '@/utils/schemas-types'
+import { createdAt, id, updatedAt } from '../utils/schemas-types'
 import { users } from './users'
 
 export const accounts = pgTable('accounts', {
@@ -19,3 +20,5 @@ export const accounts = pgTable('accounts', {
   createdAt,
   updatedAt,
 })
+
+export type AccountsInterface = InferSelectModel<typeof accounts>
