@@ -2,11 +2,7 @@ import type { CreateModSchema } from '@org/validation/schemas/mod'
 
 export namespace CreateMod {
   export type Data = CreateModSchema
-  export type Response = {
-    id: string
-    name: string
-    steam: { name: string; image: string; id: string }
-  }
+  export type Response = { id: string }
 }
 
 export async function createMod(data: CreateMod.Data) {

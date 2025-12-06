@@ -1,8 +1,7 @@
 import '@/env'
+import { initRoutes } from './infra/http/routes'
 
-import { server } from './infra/http/routes'
-
-const app = server
+const app = initRoutes()
   .get('/health', () => ({
     message: 'OK',
   }))

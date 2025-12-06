@@ -1,15 +1,20 @@
 import { modsControllerFactory } from '@infra/http/controllers/factories'
 import type { App } from '@infra/http/server'
+import { createModSchema } from '@org/validation'
 
 export function modsRoutes(app: App) {
   app.group('/mods', (route) => {
-    route.get(
+    route.post(
       '/',
-      async ({ status }) => {
-        const res = await modsControllerFactory.createMod()
+      async ({ status, body, user }) => {
+        const res = await modsControllerFactory.createMod({ body, user })
+        console.log(res)
         return status(res.status, res.value)
       },
-      { auth: true },
+      {
+        auth: true,
+        body: createModSchema,
+      },
     )
     return route
   })

@@ -32,10 +32,10 @@ interface GetPublishedFileDetails {
 }
 
 export class SteamClient {
-  async getWorkspaceItem(id: string) {
+  async getModById(modId: string) {
     const formData = new URLSearchParams()
     formData.append('itemcount', '1')
-    formData.append('publishedfileids[0]', id)
+    formData.append('publishedfileids[0]', modId)
 
     const res = await fetch(
       'https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/',
@@ -46,22 +46,23 @@ export class SteamClient {
     )
 
     if (!res.ok) {
-      // Fix
-      return null
+      return new Error('Failed to get steam mod.')
     }
 
     const data = await res.json()
 
     const { response } = data as GetPublishedFileDetails
 
-    // Fix
-    if (!response.publishedfiledetails.length) return null
+    if (!response.publishedfiledetails.length) {
+      return new Error('Steam mod not found.')
+    }
 
-    const steamWorkspaceItem = response.publishedfiledetails[0]
+    const steamMod = response.publishedfiledetails[0]
 
-    const { preview_url, title, tags } = steamWorkspaceItem
+    const { preview_url, title, tags } = steamMod
 
     return {
+      id: modId,
       title,
       previewImage: preview_url,
       tags: tags.map((tag) => tag.tag),

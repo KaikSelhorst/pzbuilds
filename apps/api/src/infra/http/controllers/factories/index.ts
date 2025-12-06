@@ -1,1 +1,1 @@
-export * from "./mods-controller-factory"
+export * from './mods-controller-factory'
