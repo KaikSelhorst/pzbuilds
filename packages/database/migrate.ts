@@ -15,6 +15,7 @@ export async function migrateDatabase() {
     console.log('Migration completed successfully.')
   } catch (error: unknown) {
     console.error('Migration failed!')
+    console.log(error)
     if (error instanceof Error) {
       console.error(`Error details: ${error.message}`)
     }
