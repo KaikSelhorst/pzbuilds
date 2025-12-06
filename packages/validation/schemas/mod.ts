@@ -7,3 +7,15 @@ export const createModSchema = z.object({
 })
 
 export type CreateModSchema = z.infer<typeof createModSchema>
+
+export const updateModSchema = z.object({
+  name: z
+    .string({ error: 'name is required' })
+    .min(2, { error: 'name must be at least 2 characters long' }),
+})
+
+export type UpdateModSchema = z.infer<typeof updateModSchema>
+
+export const updateModParamsSchema = z.object({
+  modId: z.uuidv7({ error: 'id is required' }),
+})
