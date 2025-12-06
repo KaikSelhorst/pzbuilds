@@ -143,8 +143,6 @@ export class UpdateModController {
       return new ApiResponse({ message: 'Mod update failed' }, 500)
     }
 
-    console.log(updatedMod.toJSON())
-
     return new ApiResponse(updatedMod.toJSON(), 200)
   }
 }
