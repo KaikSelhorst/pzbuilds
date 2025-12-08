@@ -58,7 +58,7 @@ export class SteamClient {
     }
 
     const steamMod = response.publishedfiledetails[0]
-
+    console.log(steamMod)
     const { preview_url, title, tags } = steamMod
 
     return {

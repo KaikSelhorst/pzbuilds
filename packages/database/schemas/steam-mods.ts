@@ -1,4 +1,3 @@
-import type { InferSelectModel } from 'drizzle-orm'
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { createdAt, updatedAt } from '../utils/schemas-types'
 
@@ -13,4 +12,4 @@ export const steamMods = pgTable('steam_mods', {
   updatedAt,
 })
 
-export type SteamModsInterface = InferSelectModel<typeof steamMods>
+export type SteamModsInterface = typeof steamMods.$inferSelect

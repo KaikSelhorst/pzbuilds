@@ -11,9 +11,26 @@ export class ModsRepository {
   ) {
     try {
       const mod = await tx.query.mods.findFirst({
-        where: and(eq(mods.steamModId, steamId), eq(mods.creatorId, ownerId)),
+        where: { steamModId: steamId, creatorId: ownerId },
       })
       return mod ? new ModEntity(mod) : undefined
+    } catch {
+      return undefined
+    }
+  }
+
+  async getModByIDAndOwnerIdWithSteamModData(
+    tx: Database,
+    modId: string,
+    creatorId: string,
+  ) {
+    try {
+      const mod = await tx.query.mods.findFirst({
+        with: { steamMod: { columns: { lastSync: false } } },
+        where: { id: modId, creatorId },
+        columns: { steamModId: false },
+      })
+      return mod
     } catch {
       return undefined
     }
@@ -22,7 +39,7 @@ export class ModsRepository {
   async getModByIdAndOwnerId(tx: Database, modId: string, ownerId: string) {
     try {
       const mod = await tx.query.mods.findFirst({
-        where: and(eq(mods.id, modId), eq(mods.creatorId, ownerId)),
+        where: { id: modId, creatorId: ownerId },
       })
       return mod ? new ModEntity(mod) : undefined
     } catch {

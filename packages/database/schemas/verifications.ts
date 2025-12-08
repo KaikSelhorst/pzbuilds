@@ -1,4 +1,3 @@
-import type { InferSelectModel } from 'drizzle-orm'
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { createdAt, id, updatedAt } from '../utils/schemas-types'
 
@@ -11,4 +10,4 @@ export const verifications = pgTable('verifications', {
   updatedAt,
 })
 
-export type VerificationsInterface = InferSelectModel<typeof verifications>
+export type VerificationsInterface = typeof verifications.$inferSelect

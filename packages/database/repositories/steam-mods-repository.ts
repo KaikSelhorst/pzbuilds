@@ -1,4 +1,3 @@
-import { eq } from 'drizzle-orm'
 import type { Database } from '../database'
 import { SteamModEntity } from '../entities'
 import { steamMods } from '../schemas'
@@ -7,7 +6,7 @@ export class SteamModsRepository {
   async getModById(tx: Database, modId: string) {
     try {
       const steamMod = await tx.query.steamMods.findFirst({
-        where: eq(steamMods.id, modId),
+        where: { id: modId },
       })
       return steamMod ? new SteamModEntity(steamMod) : undefined
     } catch {

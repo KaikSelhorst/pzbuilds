@@ -22,7 +22,17 @@ export function makeUpdateModController() {
   return handler.execute.bind(handler)
 }
 
+export function makeGetModController() {
+  const handler = new modsControler.getMod({
+    database: database,
+    modsRepository: new ModsRepository(),
+  })
+
+  return handler.execute.bind(handler)
+}
+
 export const modsControllerFactory = {
   createMod: makeCreateModController(),
   updateMod: makeUpdateModController(),
+  getMod: makeGetModController(),
 }

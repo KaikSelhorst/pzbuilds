@@ -1,4 +1,3 @@
-import type { InferSelectModel } from 'drizzle-orm'
 import { boolean, pgTable, text } from 'drizzle-orm/pg-core'
 import { createdAt, id, updatedAt } from '../utils/schemas-types'
 
@@ -12,4 +11,4 @@ export const users = pgTable('users', {
   updatedAt,
 })
 
-export type UsersInterface = InferSelectModel<typeof users>
+export type UsersInterface = typeof users.$inferSelect

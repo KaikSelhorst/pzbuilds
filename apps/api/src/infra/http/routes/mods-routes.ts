@@ -37,6 +37,18 @@ export function modsRoutes(app: App) {
       },
     )
 
+    route.get(
+      '/:modId',
+      async ({ status, params, user }) => {
+        const res = await modsControllerFactory.getMod({ params, user })
+        return status(res.status, res.value)
+      },
+      {
+        auth: true,
+        params: updateModParamsSchema,
+      },
+    )
+
     return route
   })
   return app
