@@ -2,7 +2,7 @@ import { modsControler } from '@infra/http/controllers/mods-controller'
 import { database, ModsRepository, SteamModsRepository } from '@org/database'
 import { SteamClient } from '@/infra/lib/steam'
 
-export function makeCreateModController() {
+function makeCreateModController() {
   const handler = new modsControler.createMod({
     database: database,
     steamModsRepository: new SteamModsRepository(),
@@ -13,7 +13,7 @@ export function makeCreateModController() {
   return handler.execute.bind(handler)
 }
 
-export function makeUpdateModController() {
+function makeUpdateModController() {
   const handler = new modsControler.updateMod({
     database: database,
     modsRepository: new ModsRepository(),
@@ -22,8 +22,17 @@ export function makeUpdateModController() {
   return handler.execute.bind(handler)
 }
 
-export function makeGetModController() {
+function makeGetModController() {
   const handler = new modsControler.getMod({
+    database: database,
+    modsRepository: new ModsRepository(),
+  })
+
+  return handler.execute.bind(handler)
+}
+
+function makeGetModsController() {
+  const handler = new modsControler.getMods({
     database: database,
     modsRepository: new ModsRepository(),
   })
@@ -35,4 +44,5 @@ export const modsControllerFactory = {
   createMod: makeCreateModController(),
   updateMod: makeUpdateModController(),
   getMod: makeGetModController(),
+  getMods: makeGetModsController(),
 }

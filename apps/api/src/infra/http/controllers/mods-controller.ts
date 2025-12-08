@@ -6,7 +6,11 @@ import {
   SteamModEntity,
   type SteamModsRepository,
 } from '@org/database'
-import type { CreateModSchema, UpdateModSchema } from '@org/validation'
+import type {
+  CreateModSchema,
+  GetModsFilterSchema,
+  UpdateModSchema,
+} from '@org/validation'
 import type { SteamClient } from '@/infra/lib/steam'
 import { ApiResponse } from '@/infra/utils'
 
@@ -176,8 +180,34 @@ class GetModController {
   }
 }
 
+interface GetModsControllerProps {
+  database: Database
+  modsRepository: ModsRepository
+}
+
+interface GetModsControllerParams extends AuthenticatedController {
+  query: GetModsFilterSchema
+}
+
+class GetModsController {
+  constructor(private props: GetModsControllerProps) {}
+
+  async execute({ user, query }: GetModsControllerParams) {
+    const { modsRepository, database } = this.props
+
+    const mods = await modsRepository.getModsByOwnerId(database, user.id, query)
+
+    if (mods === undefined) {
+      return new ApiResponse({ message: 'Mods not found' }, 404)
+    }
+
+    return new ApiResponse({ data: mods }, 200)
+  }
+}
+
 export const modsControler = {
   createMod: CreateModController,
   updateMod: UpdateModController,
   getMod: GetModController,
+  getMods: GetModsController,
 }
