@@ -7,6 +7,7 @@
     "preview": "bun docker:up && bun drizzle-kit studio --port=7000 --config=./drizzle.config.ts",
     "db:generate": "drizzle-kit generate --config=./drizzle.config.ts",
     "db:migrate": "bun run ./migrate.ts",
+    "db:up": "bun drizzle-kit up --config=./drizzle.config.ts",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
     "docker:kill": "docker compose down --volumes --remove-orphans",
@@ -14,11 +15,11 @@
   },
   "dependencies": {
     "@org/validation": "workspace:*",
-    "drizzle-orm": "0.45.0"
+    "drizzle-orm": "1.0.0-beta.2-86f844e"
   },
   "devDependencies": {
     "@org/tsconfig": "workspace:*",
-    "drizzle-kit": "0.31.8",
+    "drizzle-kit": "1.0.0-beta.2-86f844e",
     "pg": "8.16.3"
   }
 }
