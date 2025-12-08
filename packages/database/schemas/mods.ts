@@ -17,4 +17,4 @@ export const mods = pgTable('mods', {
   updatedAt,
 })
 
-export type ModsInterface =  typeof mods.$inferSelect
+export type ModsInterface = typeof mods.$inferSelect
