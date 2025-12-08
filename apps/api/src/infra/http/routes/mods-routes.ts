@@ -18,6 +18,7 @@ export function modsRoutes(app: App) {
       {
         auth: true,
         body: createModSchema,
+        tags: ['Api'],
       },
     )
 
@@ -35,6 +36,7 @@ export function modsRoutes(app: App) {
         auth: true,
         body: updateModSchema,
         params: updateModParamsSchema,
+        tags: ['Api'],
       },
     )
 
@@ -47,6 +49,7 @@ export function modsRoutes(app: App) {
       {
         auth: true,
         params: updateModParamsSchema,
+        tags: ['Api'],
       },
     )
 
@@ -56,7 +59,7 @@ export function modsRoutes(app: App) {
         const res = await modsControllerFactory.getMods({ user, query })
         return status(res.status, res.value)
       },
-      { auth: true, query: getModsFilterSchema },
+      { auth: true, query: getModsFilterSchema, tags: ['Api'] },
     )
 
     return route
