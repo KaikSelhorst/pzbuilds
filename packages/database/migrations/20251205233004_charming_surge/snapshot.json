@@ -1,8 +1,6 @@
 {
   "id": "caefd066-9c89-4f9d-bca8-e74e511243d4",
-  "prevIds": [
-    "02ff8f9e-c421-4ce4-9bad-bf8062160e91"
-  ],
+  "prevIds": ["02ff8f9e-c421-4ce4-9bad-bf8062160e91"],
   "version": "8",
   "dialect": "postgres",
   "ddl": [
@@ -13,9 +11,7 @@
       "entityType": "tables"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "accounts_pkey",
       "schema": "public",
@@ -193,14 +189,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "accounts_user_id_users_id_fk",
@@ -215,9 +207,7 @@
       "entityType": "tables"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "mods_pkey",
       "schema": "public",
@@ -317,14 +307,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "steam_mod_id"
-      ],
+      "columns": ["steam_mod_id"],
       "schemaTo": "public",
       "tableTo": "steam_mods",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "mods_steam_mod_id_steam_mods_id_fk",
@@ -334,14 +320,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "creator_id"
-      ],
+      "columns": ["creator_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "mods_creator_id_users_id_fk",
@@ -356,9 +338,7 @@
       "entityType": "tables"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "sessions_pkey",
       "schema": "public",
@@ -471,9 +451,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "token"
-      ],
+      "columns": ["token"],
       "nullsNotDistinct": false,
       "name": "sessions_token_unique",
       "schema": "public",
@@ -482,14 +460,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "sessions_user_id_users_id_fk",
@@ -504,9 +478,7 @@
       "entityType": "tables"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "steam_mods_pkey",
       "schema": "public",
@@ -624,9 +596,7 @@
       "entityType": "tables"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "users_pkey",
       "schema": "public",
@@ -726,9 +696,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "email"
-      ],
+      "columns": ["email"],
       "nullsNotDistinct": false,
       "name": "users_email_unique",
       "schema": "public",
@@ -742,9 +710,7 @@
       "entityType": "tables"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "verifications_pkey",
       "schema": "public",
