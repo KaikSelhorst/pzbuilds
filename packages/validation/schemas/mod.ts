@@ -23,7 +23,7 @@ export const updateModParamsSchema = z.object({
 
 export const getModsFilterSchema = z.object({
   limit: limit(25, 100, 25),
-  offset: offset(0, 25),
+  offset: offset(0, 0),
 })
 
 export type GetModsFilterSchema = z.infer<typeof getModsFilterSchema>

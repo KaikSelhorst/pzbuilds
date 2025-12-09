@@ -1,6 +1,6 @@
 import { z } from '../zod'
 
-export const offset = (min = 25, defaultValue = 25) => {
+export const offset = (min = 0, defaultValue = 0) => {
   return z
     .string()
     .transform((value) => {
