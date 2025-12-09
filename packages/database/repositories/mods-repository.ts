@@ -3,6 +3,11 @@ import type { Database } from '../database'
 import { ModEntity } from '../entities'
 import { mods } from '../schemas'
 
+interface GetModsFilter {
+  offset: number
+  limit: number
+}
+
 export class ModsRepository {
   async getModBySteamIdAndOwner(
     tx: Database,
@@ -64,6 +69,25 @@ export class ModsRepository {
     try {
       const createdMod = await tx.insert(mods).values(modEntity).returning()
       return new ModEntity(createdMod[0])
+    } catch {
+      return undefined
+    }
+  }
+
+  async getModsByOwnerId(
+    tx: Database,
+    ownerId: string,
+    filters: GetModsFilter,
+  ) {
+    try {
+      const mods = await tx.query.mods.findMany({
+        columns: { steamModId: false },
+        with: { steamMod: { columns: { lastSync: false } } },
+        where: { creatorId: ownerId },
+        offset: filters.offset,
+        limit: filters.limit,
+      })
+      return mods
     } catch {
       return undefined
     }

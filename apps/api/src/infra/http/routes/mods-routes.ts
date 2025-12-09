@@ -2,6 +2,7 @@ import { modsControllerFactory } from '@infra/http/controllers/factories'
 import type { App } from '@infra/http/server'
 import {
   createModSchema,
+  getModsFilterSchema,
   updateModParamsSchema,
   updateModSchema,
 } from '@org/validation'
@@ -17,6 +18,7 @@ export function modsRoutes(app: App) {
       {
         auth: true,
         body: createModSchema,
+        tags: ['Api'],
       },
     )
 
@@ -34,6 +36,7 @@ export function modsRoutes(app: App) {
         auth: true,
         body: updateModSchema,
         params: updateModParamsSchema,
+        tags: ['Api'],
       },
     )
 
@@ -46,7 +49,17 @@ export function modsRoutes(app: App) {
       {
         auth: true,
         params: updateModParamsSchema,
+        tags: ['Api'],
       },
+    )
+
+    route.get(
+      '/',
+      async ({ status, user, query }) => {
+        const res = await modsControllerFactory.getMods({ user, query })
+        return status(res.status, res.value)
+      },
+      { auth: true, query: getModsFilterSchema, tags: ['Api'] },
     )
 
     return route

@@ -11,8 +11,11 @@
 import { Route as rootRouteImport } from './pages/__root'
 import { Route as ProfileLayoutRouteImport } from './pages/profile/layout'
 import { Route as IndexRouteImport } from './pages/index'
-import { Route as ProfileModsRouteImport } from './pages/profile/mods'
 import { Route as ProfileBuildsRouteImport } from './pages/profile/builds'
+import { Route as ProfileModsIndexRouteImport } from './pages/profile/mods/index'
+import { Route as ProfileModsModIdRouteImport } from './pages/profile/mods/$modId'
+import { Route as ProfileModsModIdTraitsRouteImport } from './pages/profile/mods/$modId.traits'
+import { Route as ProfileModsModIdSkillsRouteImport } from './pages/profile/mods/$modId.skills'
 
 const ProfileLayoutRoute = ProfileLayoutRouteImport.update({
   id: '/profile',
@@ -24,42 +27,88 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProfileModsRoute = ProfileModsRouteImport.update({
-  id: '/mods',
-  path: '/mods',
-  getParentRoute: () => ProfileLayoutRoute,
-} as any)
 const ProfileBuildsRoute = ProfileBuildsRouteImport.update({
   id: '/builds',
   path: '/builds',
   getParentRoute: () => ProfileLayoutRoute,
+} as any)
+const ProfileModsIndexRoute = ProfileModsIndexRouteImport.update({
+  id: '/mods/',
+  path: '/mods/',
+  getParentRoute: () => ProfileLayoutRoute,
+} as any)
+const ProfileModsModIdRoute = ProfileModsModIdRouteImport.update({
+  id: '/mods/$modId',
+  path: '/mods/$modId',
+  getParentRoute: () => ProfileLayoutRoute,
+} as any)
+const ProfileModsModIdTraitsRoute = ProfileModsModIdTraitsRouteImport.update({
+  id: '/traits',
+  path: '/traits',
+  getParentRoute: () => ProfileModsModIdRoute,
+} as any)
+const ProfileModsModIdSkillsRoute = ProfileModsModIdSkillsRouteImport.update({
+  id: '/skills',
+  path: '/skills',
+  getParentRoute: () => ProfileModsModIdRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/profile': typeof ProfileLayoutRouteWithChildren
   '/profile/builds': typeof ProfileBuildsRoute
-  '/profile/mods': typeof ProfileModsRoute
+  '/profile/mods/$modId': typeof ProfileModsModIdRouteWithChildren
+  '/profile/mods': typeof ProfileModsIndexRoute
+  '/profile/mods/$modId/skills': typeof ProfileModsModIdSkillsRoute
+  '/profile/mods/$modId/traits': typeof ProfileModsModIdTraitsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/profile': typeof ProfileLayoutRouteWithChildren
   '/profile/builds': typeof ProfileBuildsRoute
-  '/profile/mods': typeof ProfileModsRoute
+  '/profile/mods/$modId': typeof ProfileModsModIdRouteWithChildren
+  '/profile/mods': typeof ProfileModsIndexRoute
+  '/profile/mods/$modId/skills': typeof ProfileModsModIdSkillsRoute
+  '/profile/mods/$modId/traits': typeof ProfileModsModIdTraitsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/profile': typeof ProfileLayoutRouteWithChildren
   '/profile/builds': typeof ProfileBuildsRoute
-  '/profile/mods': typeof ProfileModsRoute
+  '/profile/mods/$modId': typeof ProfileModsModIdRouteWithChildren
+  '/profile/mods/': typeof ProfileModsIndexRoute
+  '/profile/mods/$modId/skills': typeof ProfileModsModIdSkillsRoute
+  '/profile/mods/$modId/traits': typeof ProfileModsModIdTraitsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/profile' | '/profile/builds' | '/profile/mods'
+  fullPaths:
+    | '/'
+    | '/profile'
+    | '/profile/builds'
+    | '/profile/mods/$modId'
+    | '/profile/mods'
+    | '/profile/mods/$modId/skills'
+    | '/profile/mods/$modId/traits'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/profile' | '/profile/builds' | '/profile/mods'
-  id: '__root__' | '/' | '/profile' | '/profile/builds' | '/profile/mods'
+  to:
+    | '/'
+    | '/profile'
+    | '/profile/builds'
+    | '/profile/mods/$modId'
+    | '/profile/mods'
+    | '/profile/mods/$modId/skills'
+    | '/profile/mods/$modId/traits'
+  id:
+    | '__root__'
+    | '/'
+    | '/profile'
+    | '/profile/builds'
+    | '/profile/mods/$modId'
+    | '/profile/mods/'
+    | '/profile/mods/$modId/skills'
+    | '/profile/mods/$modId/traits'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -83,13 +132,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/profile/mods': {
-      id: '/profile/mods'
-      path: '/mods'
-      fullPath: '/profile/mods'
-      preLoaderRoute: typeof ProfileModsRouteImport
-      parentRoute: typeof ProfileLayoutRoute
-    }
     '/profile/builds': {
       id: '/profile/builds'
       path: '/builds'
@@ -97,17 +139,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileBuildsRouteImport
       parentRoute: typeof ProfileLayoutRoute
     }
+    '/profile/mods/': {
+      id: '/profile/mods/'
+      path: '/mods'
+      fullPath: '/profile/mods'
+      preLoaderRoute: typeof ProfileModsIndexRouteImport
+      parentRoute: typeof ProfileLayoutRoute
+    }
+    '/profile/mods/$modId': {
+      id: '/profile/mods/$modId'
+      path: '/mods/$modId'
+      fullPath: '/profile/mods/$modId'
+      preLoaderRoute: typeof ProfileModsModIdRouteImport
+      parentRoute: typeof ProfileLayoutRoute
+    }
+    '/profile/mods/$modId/traits': {
+      id: '/profile/mods/$modId/traits'
+      path: '/traits'
+      fullPath: '/profile/mods/$modId/traits'
+      preLoaderRoute: typeof ProfileModsModIdTraitsRouteImport
+      parentRoute: typeof ProfileModsModIdRoute
+    }
+    '/profile/mods/$modId/skills': {
+      id: '/profile/mods/$modId/skills'
+      path: '/skills'
+      fullPath: '/profile/mods/$modId/skills'
+      preLoaderRoute: typeof ProfileModsModIdSkillsRouteImport
+      parentRoute: typeof ProfileModsModIdRoute
+    }
   }
 }
 
+interface ProfileModsModIdRouteChildren {
+  ProfileModsModIdSkillsRoute: typeof ProfileModsModIdSkillsRoute
+  ProfileModsModIdTraitsRoute: typeof ProfileModsModIdTraitsRoute
+}
+
+const ProfileModsModIdRouteChildren: ProfileModsModIdRouteChildren = {
+  ProfileModsModIdSkillsRoute: ProfileModsModIdSkillsRoute,
+  ProfileModsModIdTraitsRoute: ProfileModsModIdTraitsRoute,
+}
+
+const ProfileModsModIdRouteWithChildren =
+  ProfileModsModIdRoute._addFileChildren(ProfileModsModIdRouteChildren)
+
 interface ProfileLayoutRouteChildren {
   ProfileBuildsRoute: typeof ProfileBuildsRoute
-  ProfileModsRoute: typeof ProfileModsRoute
+  ProfileModsModIdRoute: typeof ProfileModsModIdRouteWithChildren
+  ProfileModsIndexRoute: typeof ProfileModsIndexRoute
 }
 
 const ProfileLayoutRouteChildren: ProfileLayoutRouteChildren = {
   ProfileBuildsRoute: ProfileBuildsRoute,
-  ProfileModsRoute: ProfileModsRoute,
+  ProfileModsModIdRoute: ProfileModsModIdRouteWithChildren,
+  ProfileModsIndexRoute: ProfileModsIndexRoute,
 }
 
 const ProfileLayoutRouteWithChildren = ProfileLayoutRoute._addFileChildren(

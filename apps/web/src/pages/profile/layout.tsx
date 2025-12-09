@@ -1,10 +1,6 @@
 import { Button } from '@org/design-system/components/ui/button'
-import { Share } from '@org/design-system/components/ui/icons'
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
-import {
-  ProfileNavbar,
-  ProfileNavbarLink,
-} from '@/components/nav/profile-navbar'
+import { createFileRoute, Link, Outlet, redirect } from '@tanstack/react-router'
+
 import { auth } from '@/lib/auth'
 
 export const Route = createFileRoute('/profile')({
@@ -34,20 +30,38 @@ function RouteComponent() {
           )}
           <h1 className="font-medium">{data?.user.name}</h1>
         </div>
-        <Button className="w-full">
-          <Share />
-          Share
-        </Button>
+        <ProfileNavbar />
       </aside>
       <main className="space-y-3">
-        <ProfileNavbar>
-          <ProfileNavbarLink to="/profile/builds">Builds</ProfileNavbarLink>
-          <ProfileNavbarLink to="/profile/mods">Mods</ProfileNavbarLink>
-        </ProfileNavbar>
-        <section>
-          <Outlet />
-        </section>
+        <Outlet />
       </main>
     </section>
+  )
+}
+
+function ProfileNavbar() {
+  return (
+    <nav className="grid gap-2">
+      <Link to="/profile/builds">
+        {({ isActive }) => (
+          <Button
+            variant={isActive ? 'default' : 'secondary'}
+            className="w-full"
+          >
+            Builds
+          </Button>
+        )}
+      </Link>
+      <Link to="/profile/mods">
+        {({ isActive }) => (
+          <Button
+            variant={isActive ? 'default' : 'secondary'}
+            className="w-full"
+          >
+            Mods
+          </Button>
+        )}
+      </Link>
+    </nav>
   )
 }

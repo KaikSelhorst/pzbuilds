@@ -1,4 +1,5 @@
 import z from 'zod'
+import { limit, offset } from './filters'
 
 export const createModSchema = z.object({
   modId: z
@@ -19,3 +20,10 @@ export type UpdateModSchema = z.infer<typeof updateModSchema>
 export const updateModParamsSchema = z.object({
   modId: z.uuidv7({ error: 'id is required' }),
 })
+
+export const getModsFilterSchema = z.object({
+  limit: limit(25, 100, 25),
+  offset: offset(0, 0),
+})
+
+export type GetModsFilterSchema = z.infer<typeof getModsFilterSchema>
