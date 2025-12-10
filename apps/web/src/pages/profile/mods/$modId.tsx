@@ -1,5 +1,8 @@
-import { Button } from '@org/design-system/components/ui/button'
-import { createFileRoute, Link, Outlet, redirect } from '@tanstack/react-router'
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
+import {
+  ProfileNavbar,
+  ProfileNavbarLink,
+} from '@/components/nav/profile-navbar'
 import { useGetMod } from '@/queries/mods'
 
 export const Route = createFileRoute('/profile/mods/$modId')({
@@ -18,10 +21,12 @@ export const Route = createFileRoute('/profile/mods/$modId')({
 function RouteComponent() {
   return (
     <section className="grid grid-cols-[4fr_minmax(auto,256px)] gap-3">
-      <main className="space-y-3">
+      <div className="space-y-3">
         <Navbar />
-        <Outlet />
-      </main>
+        <main>
+          <Outlet />
+        </main>
+      </div>
       <ModAside />
     </section>
   )
@@ -31,18 +36,14 @@ function Navbar() {
   const { modId } = Route.useParams()
 
   return (
-    <nav className="space-x-2">
-      <Link to="/profile/mods/$modId/traits" params={{ modId }}>
-        {({ isActive }) => (
-          <Button variant={isActive ? 'default' : 'secondary'}>Traits</Button>
-        )}
-      </Link>
-      <Link to="/profile/mods/$modId/skills" params={{ modId }}>
-        {({ isActive }) => (
-          <Button variant={isActive ? 'default' : 'secondary'}>Skills</Button>
-        )}
-      </Link>
-    </nav>
+    <ProfileNavbar>
+      <ProfileNavbarLink to="/profile/mods/$modId/traits" params={{ modId }}>
+        Traits
+      </ProfileNavbarLink>
+      <ProfileNavbarLink to="/profile/mods/$modId/skills" params={{ modId }}>
+        Skills
+      </ProfileNavbarLink>
+    </ProfileNavbar>
   )
 }
 
@@ -64,7 +65,7 @@ function ModAside() {
   }
 
   return (
-    <aside className="border p-2 rounded-md">
+    <aside className="border p-2 rounded-md h-fit">
       <img src={mod.steamMod.image} alt="" />
       <div className="mt-2">
         <h1 className="font-medium">{mod.steamMod.name}</h1>
