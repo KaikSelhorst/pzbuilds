@@ -23,7 +23,7 @@ function RouteComponent() {
       <section className="container py-20 md:py-32">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <div className="flex justify-center gap-2 mb-6">
-            <Badge variant="outline" appearance="light" size="lg">
+            <Badge variant="outline" className="py-1">
               <Star className="size-3.5" />
               Production Ready
             </Badge>
