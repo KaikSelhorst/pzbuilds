@@ -7,26 +7,27 @@ import {
 } from '@org/database'
 
 import type {
-  CreateModTraitParamsSchema,
-  CreateModTraitSchema,
+  CreateTraitParamsSchema,
+  CreateTraitSchema,
+  GetTraitsParamsSchema,
 } from '@org/validation'
 import { ApiResponse } from '@/infra/utils'
 
-interface CreateModTraitProps {
+interface CreateTraitProps {
   database: Database
   traitsRepository: TraitsRepository
   modsRepository: ModsRepository
 }
 
-interface CreateModTraitParams extends AuthenticatedController {
-  body: CreateModTraitSchema
-  params: CreateModTraitParamsSchema
+interface CreateTraitParams extends AuthenticatedController {
+  body: CreateTraitSchema
+  params: CreateTraitParamsSchema
 }
 
-export class CreateModTraitController {
-  constructor(private readonly props: CreateModTraitProps) {}
+export class CreateTraitController {
+  constructor(private readonly props: CreateTraitProps) {}
 
-  async execute({ body, user, params }: CreateModTraitParams) {
+  async execute({ body, user, params }: CreateTraitParams) {
     const { database, modsRepository, traitsRepository } = this.props
 
     const modEntity = await modsRepository.getModByIdAndOwnerId(
@@ -82,6 +83,35 @@ export class CreateModTraitController {
   }
 }
 
+interface GetTraitsProps {
+  database: Database
+  traitsRepository: TraitsRepository
+}
+
+interface GetTraitsParams {
+  params: GetTraitsParamsSchema
+}
+
+class GetTraitsController {
+  constructor(private readonly props: GetTraitsProps) {}
+
+  async execute({ params }: GetTraitsParams) {
+    const { database, traitsRepository } = this.props
+
+    const traitsArray = await traitsRepository.getTraitsByModId(
+      database,
+      params.modId,
+    )
+
+    if (traitsArray === undefined) {
+      return new ApiResponse({ message: 'Traits not found!' }, 404)
+    }
+
+    return new ApiResponse({ data: traitsArray }, 200)
+  }
+}
+
 export const traitsController = {
-  createTrait: CreateModTraitController,
+  createTrait: CreateTraitController,
+  getTraits: GetTraitsController,
 }
