@@ -13,6 +13,7 @@ import {
   ProfileNavbarLink,
 } from '@/components/nav/profile-navbar'
 import { useGetMod } from '@/queries/mods'
+import { ModAside } from './-components/mod-aside'
 
 export const Route = createFileRoute('/profile/mods/$modId')({
   component: RouteComponent,
@@ -28,6 +29,8 @@ export const Route = createFileRoute('/profile/mods/$modId')({
 })
 
 function RouteComponent() {
+  const { modId } = Route.useParams()
+
   return (
     <section className="grid grid-cols-[4fr_minmax(auto,256px)]">
       <div>
@@ -36,7 +39,7 @@ function RouteComponent() {
           <Outlet />
         </main>
       </div>
-      <ModAside />
+      <ModAside modId={modId} />
     </section>
   )
 }
@@ -44,7 +47,7 @@ function RouteComponent() {
 function Navbar() {
   const { modId } = Route.useParams()
 
-  const { data: mod, isLoading } = useGetMod({ modId })
+  const { data: mod, isLoading, isError } = useGetMod({ modId })
 
   return (
     <>
@@ -58,9 +61,15 @@ function Navbar() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>
-                {isLoading ? 'Finding mod...' : mod?.name}
-              </BreadcrumbPage>
+              {isError ? (
+                <BreadcrumbPage className="text-destructive">
+                  Error loading mod
+                </BreadcrumbPage>
+              ) : (
+                <BreadcrumbPage>
+                  {isLoading ? 'Loading mod details...' : mod?.name}
+                </BreadcrumbPage>
+              )}
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -75,42 +84,5 @@ function Navbar() {
         </ProfileNavbarLink>
       </ProfileNavbar>
     </>
-  )
-}
-
-function ModAside() {
-  const { modId } = Route.useParams()
-
-  const { data: mod, error, isLoading } = useGetMod({ modId })
-
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>
-  }
-
-  if (!mod) {
-    return <div>No data</div>
-  }
-
-  return (
-    <aside className="border-b border-l p-2 h-fit">
-      <img src={mod.steamMod.image} alt="" />
-      <div className="mt-2">
-        <h1 className="font-medium">{mod.steamMod.name}</h1>
-        <div>
-          {new Array(5)
-            .fill('☆')
-            .splice(0, Math.random() * 5)
-            .join('')
-            .padStart(5, '★')}
-        </div>
-        <div className="text-muted-foreground text-sm">
-          {mod.steamMod.tags.join(', ')}
-        </div>
-      </div>
-    </aside>
   )
 }

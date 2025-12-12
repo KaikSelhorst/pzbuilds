@@ -28,7 +28,11 @@ export function CreateModForm() {
         <form.AppField
           name="modId"
           children={(field) => (
-            <field.TextField label="Mod ID" placeholder="Steam Mod ID" />
+            <field.TextField
+              label="Mod ID"
+              placeholder="Enter Steam Workshop Mod ID"
+              aria-describedby="mod-id-description"
+            />
           )}
         />
       </FieldGroup>
@@ -36,9 +40,14 @@ export function CreateModForm() {
         <AlertTitle>
           You need to provide the Mod ID. It will be used to retrieve
           information such as the mod's preview image, name, and tags. If you
-          don't know how to find the Mod ID, check this{' '}
-          <a href="https://example.com" className="text-primary underline">
-            link
+          don't know how to find the Mod ID, check the{' '}
+          <a
+            href="https://steamcommunity.com/sharedfiles/filedetails/?id=YOUR_MOD_ID"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline hover:text-primary/80"
+          >
+            Steam Workshop documentation
           </a>
           .
         </AlertTitle>
@@ -56,11 +65,7 @@ export function CreateModForm() {
       )}
       {createMod.data && (
         <Alert variant="success" className="rounded-none">
-          <AlertTitle className="max-w-sm">
-            <code>
-              <pre>{JSON.stringify(createMod.data, null, 2)}</pre>
-            </code>
-          </AlertTitle>
+          <AlertTitle>Mod created successfully!</AlertTitle>
         </Alert>
       )}
     </form>

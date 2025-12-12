@@ -22,10 +22,13 @@ export const Route = createFileRoute('/profile/mods/$modId/traits')({
 function RouteComponent() {
   return (
     <>
-      <nav className="flex justify-between items-center pl-2 pr-3 my-2">
+      <nav
+        className="flex justify-between items-center pl-2 pr-3 my-2"
+        aria-label="Traits navigation"
+      >
         <TraitTypeFilter />
-        <Button>
-          New Trait <Plus />
+        <Button aria-label="Create new trait">
+          Create Trait <Plus />
         </Button>
       </nav>
       <TraitList />
@@ -44,24 +47,31 @@ function TraitList() {
   return (
     <ScrollArea className="h-[calc(75vh)] pr-3 pl-2">
       <ul className="space-y-2">
-        {activeTraits.map((trait) => (
-          <li
-            key={trait.id}
-            className="border p-2 bg-card rounded-md text-card-foreground flex justify-between"
-          >
-            <div>
-              <h2 className="font-medium">{trait.name}</h2>
-              <p className="text-sm text-muted-foreground">
-                {trait.description}
-              </p>
-            </div>
-            <Badge
-              variant={trait.type === 'positive' ? 'destructive' : 'success'}
-            >
-              {trait.type === 'positive' ? trait.cost : `+${trait.cost}`}
-            </Badge>
+        {activeTraits.length === 0 ? (
+          <li className="text-center py-8 text-muted-foreground">
+            No {traitType ? traitType.toLowerCase() : ''} traits found
           </li>
-        ))}
+        ) : (
+          activeTraits.map((trait) => (
+            <li
+              key={trait.id}
+              className="border p-2 bg-card rounded-md text-card-foreground flex justify-between hover:bg-accent"
+            >
+              <div className="flex-1">
+                <h3 className="font-medium">{trait.name}</h3>
+                <p className="text-sm text-muted-foreground">
+                  {trait.description}
+                </p>
+              </div>
+              <Badge
+                variant={trait.type === 'positive' ? 'destructive' : 'success'}
+                aria-label={`Trait cost: ${trait.type === 'positive' ? trait.cost : `+${trait.cost}`} points`}
+              >
+                {trait.type === 'positive' ? trait.cost : `+${trait.cost}`}
+              </Badge>
+            </li>
+          ))
+        )}
       </ul>
     </ScrollArea>
   )
@@ -71,21 +81,23 @@ function TraitTypeFilter() {
   const { traitType } = Route.useSearch()
   const navigate = Route.useNavigate()
 
+  function updateTraitType(type: 'POSITIVE' | 'NEGATIVE') {
+    navigate({ search: (prev) => ({ ...prev, traitType: type }) })
+  }
+
   return (
-    <ButtonGroup>
+    <ButtonGroup aria-label="Filter traits by type">
       <Button
         variant={traitType === 'POSITIVE' ? 'default' : 'secondary'}
-        onClick={() =>
-          navigate({ search: (prev) => ({ ...prev, traitType: 'POSITIVE' }) })
-        }
+        onClick={() => updateTraitType('POSITIVE')}
+        aria-pressed={traitType === 'POSITIVE'}
       >
         Positive
       </Button>
       <Button
         variant={traitType === 'NEGATIVE' ? 'default' : 'secondary'}
-        onClick={() =>
-          navigate({ search: (prev) => ({ ...prev, traitType: 'NEGATIVE' }) })
-        }
+        onClick={() => updateTraitType('NEGATIVE')}
+        aria-pressed={traitType === 'NEGATIVE'}
       >
         Negative
       </Button>
@@ -98,7 +110,7 @@ export const traits = [
   {
     id: 'uuid-1',
     name: 'Adrenaline Junkie',
-    description: 'Recovers from panic and stress faster. ',
+    description: 'Recovers from panic and stress faster.',
     cost: -8,
     type: 'positive',
     incompatibleWith: [],
