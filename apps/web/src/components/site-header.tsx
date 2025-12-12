@@ -6,11 +6,13 @@ import { auth } from '@/lib/auth'
 
 export function SiteHeader() {
   return (
-    <header className="container flex justify-end items-center my-4">
-      <nav className="flex gap-3 items-center">
-        <ThemeButton />
-        <UserMenu />
-      </nav>
+    <header className="border-b">
+      <div className="flex justify-end items-center h-14 px-4">
+        <nav className="flex gap-3 items-center">
+          <ThemeButton />
+          <UserMenu />
+        </nav>
+      </div>
     </header>
   )
 }

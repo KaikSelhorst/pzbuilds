@@ -19,7 +19,7 @@ function RouteComponent() {
 
   return (
     <section className="container mx-auto grid grid-cols-[200px_1fr] gap-4">
-      <aside className="space-y-2">
+      <aside className="space-y-2 mt-4">
         <div className="border rounded-md p-2 flex gap-2">
           {data?.user.image && (
             <img
@@ -32,7 +32,7 @@ function RouteComponent() {
         </div>
         <ProfileNavbar />
       </aside>
-      <main className="space-y-3">
+      <main className="border-x min-h-[calc(100vh-56px)]">
         <Outlet />
       </main>
     </section>

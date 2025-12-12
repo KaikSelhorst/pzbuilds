@@ -1,4 +1,13 @@
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@org/design-system/components/ui/breadcrumb'
+import { StripedBorder } from '@org/design-system/components/ui/striped-border'
+import { createFileRoute, Link, Outlet, redirect } from '@tanstack/react-router'
 import {
   ProfileNavbar,
   ProfileNavbarLink,
@@ -20,8 +29,8 @@ export const Route = createFileRoute('/profile/mods/$modId')({
 
 function RouteComponent() {
   return (
-    <section className="grid grid-cols-[4fr_minmax(auto,256px)] gap-3">
-      <div className="space-y-3">
+    <section className="grid grid-cols-[4fr_minmax(auto,256px)]">
+      <div>
         <Navbar />
         <main>
           <Outlet />
@@ -35,15 +44,37 @@ function RouteComponent() {
 function Navbar() {
   const { modId } = Route.useParams()
 
+  const { data: mod, isLoading } = useGetMod({ modId })
+
   return (
-    <ProfileNavbar>
-      <ProfileNavbarLink to="/profile/mods/$modId/traits" params={{ modId }}>
-        Traits
-      </ProfileNavbarLink>
-      <ProfileNavbarLink to="/profile/mods/$modId/skills" params={{ modId }}>
-        Skills
-      </ProfileNavbarLink>
-    </ProfileNavbar>
+    <>
+      <nav className="border-b px-4 py-2">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink render={<Link to="/profile/mods" />}>
+                Mods
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>
+                {isLoading ? 'Finding mod...' : mod?.name}
+              </BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </nav>
+      <StripedBorder />
+      <ProfileNavbar>
+        <ProfileNavbarLink to="/profile/mods/$modId/traits" params={{ modId }}>
+          Traits
+        </ProfileNavbarLink>
+        <ProfileNavbarLink to="/profile/mods/$modId/skills" params={{ modId }}>
+          Skills
+        </ProfileNavbarLink>
+      </ProfileNavbar>
+    </>
   )
 }
 
@@ -65,7 +96,7 @@ function ModAside() {
   }
 
   return (
-    <aside className="border p-2 rounded-md h-fit">
+    <aside className="border-b border-l p-2 h-fit">
       <img src={mod.steamMod.image} alt="" />
       <div className="mt-2">
         <h1 className="font-medium">{mod.steamMod.name}</h1>

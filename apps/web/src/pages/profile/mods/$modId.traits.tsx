@@ -22,7 +22,7 @@ export const Route = createFileRoute('/profile/mods/$modId/traits')({
 function RouteComponent() {
   return (
     <>
-      <nav className="flex justify-between">
+      <nav className="flex justify-between items-center pl-2 pr-3 my-2">
         <TraitTypeFilter />
         <Button>
           New Trait <Plus />
@@ -42,8 +42,8 @@ function TraitList() {
   }, [traitType])
 
   return (
-    <ScrollArea className="h-[calc(75vh)] pr-3">
-      <ul className="mt-2 space-y-2">
+    <ScrollArea className="h-[calc(75vh)] pr-3 pl-2">
+      <ul className="space-y-2">
         {activeTraits.map((trait) => (
           <li
             key={trait.id}
@@ -51,7 +51,9 @@ function TraitList() {
           >
             <div>
               <h2 className="font-medium">{trait.name}</h2>
-              <p className="text-sm">{trait.description}</p>
+              <p className="text-sm text-muted-foreground">
+                {trait.description}
+              </p>
             </div>
             <Badge
               variant={trait.type === 'positive' ? 'destructive' : 'success'}
@@ -70,7 +72,7 @@ function TraitTypeFilter() {
   const navigate = Route.useNavigate()
 
   return (
-    <ButtonGroup className="mb-2">
+    <ButtonGroup>
       <Button
         variant={traitType === 'POSITIVE' ? 'default' : 'secondary'}
         onClick={() =>

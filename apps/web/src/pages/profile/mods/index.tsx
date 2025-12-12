@@ -1,4 +1,11 @@
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+} from '@org/design-system/components/ui/breadcrumb'
 import { Button } from '@org/design-system/components/ui/button'
+import { StripedBorder } from '@org/design-system/components/ui/striped-border'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { CreateModModal } from '@/components/modal/create-mod-modal'
 import { useGetMods } from '@/queries/mods'
@@ -14,17 +21,30 @@ function RouteComponent() {
 
   return (
     <>
-      <nav className="mb-2 flex justify-between">
-        <Button variant="outline">Filter</Button>
+      <nav className="border-b px-4 py-2">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbPage>Mods</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </nav>
+      <StripedBorder />
+      <nav className="m-2 flex justify-between">
+        <Button variant="secondary">Filter</Button>
         <CreateModModal />
       </nav>
-      <ul className="grid grid-cols-2 gap-3">
+      <ul className="mx-2 space-y-3">
         {mods?.data.map((mod) => (
-          <li key={mod.id}>
+          <li
+            key={mod.id}
+            className="border rounded-md bg-card text-card-foreground hover:bg-card/90"
+          >
             <Link
               to="/profile/mods/$modId"
               params={{ modId: mod.id }}
-              className="border rounded p-2 flex gap-3"
+              className="p-2 flex gap-3"
             >
               <img
                 src={mod.steamMod.image}
@@ -45,9 +65,7 @@ function RouteComponent() {
                     .padStart(5, '★')}
                 </div>
                 <div className="space-x-1 text-sm text-muted-foreground mt-auto">
-                  {mod.steamMod.tags.map((tag) => (
-                    <span>{tag}</span>
-                  ))}
+                  {mod.steamMod.tags.join(', ')}
                 </div>
               </div>
             </Link>
