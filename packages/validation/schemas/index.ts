@@ -1,2 +1,2 @@
 export * from './mod'
-export * from './trait'
+export * from './traits'

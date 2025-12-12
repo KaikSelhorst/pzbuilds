@@ -28,6 +28,11 @@ export class TraitEntity implements TraitsInterface {
     return {
       id: this.id,
       name: this.name,
+      description: this.description,
+      cost: this.cost,
+      type: this.type,
+      incompatibleWith: this.incompatibleWith,
+      modId: this.modId,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     }
