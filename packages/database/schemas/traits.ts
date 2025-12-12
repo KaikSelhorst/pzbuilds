@@ -8,9 +8,9 @@ export const traits = pgTable('traits', {
   name: text('name').notNull(),
   description: text('description').notNull(),
   cost: integer('cost').notNull(),
-  type: traitTypeEnum().notNull(),
+  type: text({ enum: traitTypeEnum }).notNull(),
   incompatibleWith: uuid('tags').array().notNull().default([]),
-  modId: text('steam_mod_id')
+  modId: uuid('mod_id')
     .notNull()
     .references(() => mods.id, { onDelete: 'cascade' }),
   createdAt,

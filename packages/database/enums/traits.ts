@@ -1,7 +1,3 @@
-import { pgEnum } from 'drizzle-orm/pg-core'
+export const traitTypeEnum = ['POSITIVE', 'NEGATIVE'] as const
 
-export const TraitTypeEnum = ['POSITIVE', 'NEGATIVE'] as const
-
-export type TraitTypeEnumInterface = (typeof TraitTypeEnum)[number]
-
-export const traitTypeEnum = pgEnum('type', TraitTypeEnum)
+export type TraitTypeEnumInterface = (typeof traitTypeEnum)[number]
