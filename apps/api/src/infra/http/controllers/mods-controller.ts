@@ -164,7 +164,6 @@ class GetModController {
   constructor(private props: GetModControllerProps) {}
 
   async execute({ params, user }: GetModControllerParams) {
-    await new Promise((resolve) => setTimeout(resolve, 400))
     const { modsRepository, database } = this.props
 
     const mod = await modsRepository.getModByIDAndOwnerIdWithSteamModData(
