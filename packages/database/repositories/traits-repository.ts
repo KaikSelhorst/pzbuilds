@@ -23,4 +23,15 @@ export class TraitsRepository {
       return undefined
     }
   }
+
+  async getTraitsByModId(tx: Database, modId: string) {
+    try {
+      const traits = await tx.query.traits.findMany({
+        where: { modId },
+      })
+      return traits
+    } catch {
+      return undefined
+    }
+  }
 }

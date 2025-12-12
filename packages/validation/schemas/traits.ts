@@ -7,15 +7,13 @@ export const createTraitSchema = z.object({
   incompatibleWith: z.array(z.uuidv7()).default([]),
 })
 
-export type CreateModTraitSchema = z.infer<typeof createTraitSchema>
+export type CreateTraitSchema = z.infer<typeof createTraitSchema>
 
-export const createModTraitParamsSchema = z.object({
+export const createTraitParamsSchema = z.object({
   modId: z.uuidv7(),
 })
 
-export type CreateModTraitParamsSchema = z.infer<
-  typeof createModTraitParamsSchema
->
+export type CreateTraitParamsSchema = z.infer<typeof createTraitParamsSchema>
 
 export const updateTraitSchema = z.object({
   name: z.string().min(1).max(255).optional(),
@@ -24,4 +22,10 @@ export const updateTraitSchema = z.object({
   incompatibleWith: z.array(z.uuidv7()).default([]).optional(),
 })
 
-export type UpdateModTraitSchema = z.infer<typeof updateTraitSchema>
+export type UpdateTraitSchema = z.infer<typeof updateTraitSchema>
+
+export const getTraitsParamsSchema = z.object({
+  modId: z.uuidv7(),
+})
+
+export type GetTraitsParamsSchema = z.infer<typeof getTraitsParamsSchema>
