@@ -13,6 +13,7 @@
     "@org/auth": "workspace:*",
     "@org/design-system": "workspace:*",
     "@org/validation": "workspace:*",
+    "@org/database": "workspace:*",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/devtools-vite": "0.3.12",
     "@tanstack/react-devtools": "0.8.4",
