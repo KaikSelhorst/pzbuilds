@@ -2,6 +2,7 @@ import type { LucideProps } from 'lucide-react'
 
 export {
   ArrowRight,
+  House,
   Loader,
   LogOut,
   Moon,
