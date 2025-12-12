@@ -11,7 +11,7 @@ export function ProfileNavbar({
 }: ProfileNavbarProps) {
   return (
     <nav
-      className={cn('border-b h-[46px] flex items-center', className)}
+      className={cn('border-b h-11.5 flex items-center', className)}
       {...rest}
     >
       {children}
