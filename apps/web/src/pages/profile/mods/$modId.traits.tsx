@@ -1,10 +1,8 @@
 import { Button } from '@org/design-system/components/ui/button'
 import { ButtonGroup } from '@org/design-system/components/ui/button-group'
-import { Plus } from '@org/design-system/components/ui/icons'
 import { z } from '@org/validation'
 import { createFileRoute } from '@tanstack/react-router'
 import { CreateTraitModal } from '@/components/modal/create-trait-modal'
-import { useCreateTrait } from '@/queries/traits'
 import { ModTraitsList } from './-components/mod-traits-list'
 
 const traitSearchSchema = z.object({

@@ -2,9 +2,7 @@
   "version": "8",
   "dialect": "postgres",
   "id": "164b478d-8a92-4f03-835a-f710fb4677e1",
-  "prevIds": [
-    "caefd066-9c89-4f9d-bca8-e74e511243d4"
-  ],
+  "prevIds": ["caefd066-9c89-4f9d-bca8-e74e511243d4"],
   "ddl": [
     {
       "isRlsEnabled": false,
@@ -804,14 +802,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "accounts_user_id_users_id_fk",
@@ -821,14 +815,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "steam_mod_id"
-      ],
+      "columns": ["steam_mod_id"],
       "schemaTo": "public",
       "tableTo": "steam_mods",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "mods_steam_mod_id_steam_mods_id_fk",
@@ -838,14 +828,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "creator_id"
-      ],
+      "columns": ["creator_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "mods_creator_id_users_id_fk",
@@ -855,14 +841,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "sessions_user_id_users_id_fk",
@@ -872,14 +854,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "mod_id"
-      ],
+      "columns": ["mod_id"],
       "schemaTo": "public",
       "tableTo": "mods",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "traits_mod_id_mods_id_fkey",
@@ -888,9 +866,7 @@
       "table": "traits"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "accounts_pkey",
       "schema": "public",
@@ -898,9 +874,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "mods_pkey",
       "schema": "public",
@@ -908,9 +882,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "sessions_pkey",
       "schema": "public",
@@ -918,9 +890,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "steam_mods_pkey",
       "schema": "public",
@@ -928,9 +898,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "traits_pkey",
       "schema": "public",
@@ -938,9 +906,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "users_pkey",
       "schema": "public",
@@ -948,9 +914,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "verifications_pkey",
       "schema": "public",
@@ -959,9 +923,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "token"
-      ],
+      "columns": ["token"],
       "nullsNotDistinct": false,
       "name": "sessions_token_unique",
       "schema": "public",
@@ -970,9 +932,7 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "email"
-      ],
+      "columns": ["email"],
       "nullsNotDistinct": false,
       "name": "users_email_unique",
       "schema": "public",
