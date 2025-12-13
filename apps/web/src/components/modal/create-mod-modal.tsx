@@ -10,7 +10,10 @@ import { CreateModForm } from '@/components/form/create-mod-form'
 export function CreateModModal() {
   return (
     <Dialog>
-      <DialogTrigger render={<Button />} aria-label="Open dialog to create a new mod">
+      <DialogTrigger
+        render={<Button />}
+        aria-label="Open dialog to create a new mod"
+      >
         Create Mod
         <Plus aria-hidden="true" />
       </DialogTrigger>

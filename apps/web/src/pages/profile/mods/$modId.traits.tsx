@@ -3,6 +3,7 @@ import { ButtonGroup } from '@org/design-system/components/ui/button-group'
 import { Plus } from '@org/design-system/components/ui/icons'
 import { z } from '@org/validation'
 import { createFileRoute } from '@tanstack/react-router'
+import { CreateTraitModal } from '@/components/modal/create-trait-modal'
 import { useCreateTrait } from '@/queries/traits'
 import { ModTraitsList } from './-components/mod-traits-list'
 
@@ -21,7 +22,6 @@ export const Route = createFileRoute('/profile/mods/$modId/traits')({
 function RouteComponent() {
   const { modId } = Route.useParams()
   const { traitType } = Route.useSearch()
-  const createTrait = useCreateTrait()
 
   return (
     <>
@@ -30,23 +30,7 @@ function RouteComponent() {
         aria-label="Traits navigation"
       >
         <TraitTypeFilter />
-        <Button
-          aria-label="Create new trait"
-          onClick={() =>
-            createTrait.mutate(
-              {
-                cost: 1,
-                description: 'A simple description',
-                incompatibleWith: [],
-                modId: modId,
-                name: Date.now().toString(),
-              },
-              { onError: (err) => alert(err.message) },
-            )
-          }
-        >
-          Create Trait <Plus />
-        </Button>
+        <CreateTraitModal />
       </nav>
       <ModTraitsList modId={modId} activeTraitType={traitType} />
     </>

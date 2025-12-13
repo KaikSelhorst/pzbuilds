@@ -6,7 +6,7 @@ export const createTraitSchema = z.object({
   name: z.string().min(1).max(255),
   description: z.string().min(1).max(255),
   cost: cost,
-  incompatibleWith: z.uuidv7().array().optional().default([]),
+  incompatibleWith: z.uuidv7().array(),
 })
 
 export type CreateTraitSchema = z.infer<typeof createTraitSchema>
