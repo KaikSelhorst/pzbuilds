@@ -1,4 +1,8 @@
-import { Alert, AlertTitle } from '@org/design-system/components/ui/alert'
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@org/design-system/components/ui/alert'
 import { Button } from '@org/design-system/components/ui/button'
 import { FieldGroup } from '@org/design-system/components/ui/field'
 import { Loader } from '@org/design-system/components/ui/icons'
@@ -41,8 +45,8 @@ export function CreateModForm() {
           )}
         />
       </FieldGroup>
-      <Alert variant="secondary" className="rounded-none">
-        <AlertTitle>
+      <Alert>
+        <AlertDescription>
           You need to provide the Mod ID. It will be used to retrieve
           information such as the mod's preview image, name, and tags. If you
           don't know how to find the Mod ID, check the{' '}
@@ -55,7 +59,7 @@ export function CreateModForm() {
             Steam Workshop documentation
           </a>
           .
-        </AlertTitle>
+        </AlertDescription>
       </Alert>
 
       <FormActions
