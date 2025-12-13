@@ -11,6 +11,10 @@ import {
 export const useCreateMod = () => {
   return useMutation<CreateMod.Response, Error, CreateMod.Data>({
     mutationFn: createMod,
+    onSuccess: (_, __, ___, ctx) => {
+      const queryKey = ['get-mods']
+      return ctx.client.invalidateQueries({ queryKey })
+    },
   })
 }
 

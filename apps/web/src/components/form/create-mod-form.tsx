@@ -3,17 +3,22 @@ import { Button } from '@org/design-system/components/ui/button'
 import { FieldGroup } from '@org/design-system/components/ui/field'
 import { Loader } from '@org/design-system/components/ui/icons'
 import { createModSchema } from '@org/validation/schemas/mod'
-
+import { useNavigate } from '@tanstack/react-router'
 import { useAppForm } from '@/hooks/form'
 import { useCreateMod } from '@/queries/mods'
 
 export function CreateModForm() {
   const createMod = useCreateMod()
+  const navigate = useNavigate()
 
   const form = useAppForm({
     defaultValues: { modId: '' },
     validators: { onSubmit: createModSchema },
-    onSubmit: ({ value }) => createMod.mutate(value),
+    onSubmit: ({ value }) =>
+      createMod.mutate(value, {
+        onSuccess: (res) =>
+          navigate({ to: '/profile/mods/$modId', params: { modId: res.id } }),
+      }),
   })
 
   return (

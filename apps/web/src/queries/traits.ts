@@ -14,14 +14,14 @@ export const useCreateTrait = () => {
 
       const previewData = ctx.client.getQueryData<GetTraits.Response>(queryKey)
 
-      if (previewData === undefined) return undefined
+      if (previewData === undefined) return
 
-      ctx.client.setQueryData(['get-traits', variables.modId], {
+      ctx.client.setQueryData(queryKey, {
         ...previewData,
         data: [...previewData.data, data],
       })
 
-      return () => ctx.client.invalidateQueries({ queryKey })
+      return ctx.client.invalidateQueries({ queryKey, refetchType: 'none' })
     },
   })
 }
