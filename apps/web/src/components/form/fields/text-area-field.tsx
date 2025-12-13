@@ -4,15 +4,15 @@ import {
   FieldError,
   FieldLabel,
 } from '@org/design-system/components/ui/field'
-import { Input } from '@org/design-system/components/ui/input'
+import { Textarea } from '@org/design-system/components/ui/textarea'
 import { useFieldContext } from '@/hooks/form'
 
-interface FieldProps extends React.ComponentProps<'input'> {
+interface FieldProps extends React.ComponentProps<'textarea'> {
   label: string
   description?: string
 }
 
-export default function TextField(props: FieldProps) {
+export default function TextareaField(props: FieldProps) {
   const { label, description, ...rest } = props
 
   const field = useFieldContext<string>()
@@ -22,7 +22,7 @@ export default function TextField(props: FieldProps) {
   return (
     <Field data-invalid={isInvalid}>
       <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
-      <Input
+      <Textarea
         {...rest}
         id={field.name}
         name={field.name}
