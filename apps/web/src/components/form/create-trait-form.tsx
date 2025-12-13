@@ -2,7 +2,7 @@ import { Alert, AlertTitle } from '@org/design-system/components/ui/alert'
 import { Button } from '@org/design-system/components/ui/button'
 import { FieldGroup } from '@org/design-system/components/ui/field'
 import { Loader } from '@org/design-system/components/ui/icons'
-import { createTraitSchema, z } from '@org/validation'
+import { createTraitSchema } from '@org/validation'
 import { useParams } from '@tanstack/react-router'
 import { useAppForm } from '@/hooks/form'
 import { useCreateTrait } from '@/queries/traits'
@@ -40,8 +40,8 @@ export function CreateTraitForm({ onComplete }: CreateTraitFormProps) {
           name="name"
           children={(field) => (
             <field.TextField
-              label="Name"
-              placeholder="mnoasmd adamsodmo asmda"
+              label="Trait Name"
+              placeholder="e.g., Strong, Weak, Claustrophobic, Brave"
             />
           )}
         />
@@ -52,8 +52,8 @@ export function CreateTraitForm({ onComplete }: CreateTraitFormProps) {
               rows={6}
               className="resize-none"
               label="Description"
-              placeholder="dkmaspdmadsmpasm dasd"
-              description="Explique quais sao os beneficios e maleficios de uso dessa trait"
+              placeholder="Describe the effects of this trait in-game. e.g., Increases strength by +2, allows carrying more items, but reduces movement speed by 10%."
+              description="Explain the benefits and drawbacks of this trait for the character in Project Zomboid"
             />
           )}
         />
@@ -61,9 +61,9 @@ export function CreateTraitForm({ onComplete }: CreateTraitFormProps) {
           name="cost"
           children={(field) => (
             <field.TextField
-              label="Custo de uso"
-              placeholder="Remove some maosmdoams dmaosmdo ams"
-              description="Para uma trait ser negativa ela precisa o custo deve ser positivo, para uma trait ser positiva ela precisa o custo deve ser negativo"
+              label="Point Cost"
+              placeholder="e.g., -4 (positive trait) or +6 (negative trait)"
+              description="Negative values give points to the player (positive traits). Positive values cost points (negative traits). e.g., Strong = -4, Weak = +6"
             />
           )}
         />
@@ -87,14 +87,14 @@ function FormActions(props: { isPending: boolean }) {
     return (
       <Button className="w-full" disabled>
         <Loader className="animate-spin" />
-        Adding
+        Creating Trait...
       </Button>
     )
   }
 
   return (
     <Button className="w-full" type="submit">
-      Add
+      Create Trait
     </Button>
   )
 }
