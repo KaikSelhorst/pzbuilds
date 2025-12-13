@@ -32,8 +32,8 @@ export class CreateTraitController {
 
     const modEntity = await modsRepository.getModByIdAndOwnerId(
       database,
-      user.id,
       params.modId,
+      user.id,
     )
 
     if (modEntity === undefined) {
