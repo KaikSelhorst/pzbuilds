@@ -39,17 +39,20 @@ function RouteComponent() {
             applications.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Button size="lg" asChild>
-              <a
-                href="https://github.com/KaikSelhorst/monorepo-template/generate"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Use Template
-                <ArrowRight className="size-4" />
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
+            <Button
+              size="lg"
+              render={
+                <a
+                  href="https://github.com/KaikSelhorst/monorepo-template/generate"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Use Template
+                  <ArrowRight className="size-4" />
+                </a>
+              }
+            />
+            <Button size="lg" variant="outline">
               <a
                 href="https://github.com/KaikSelhorst/monorepo-template"
                 target="_blank"

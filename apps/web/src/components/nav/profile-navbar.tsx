@@ -26,10 +26,8 @@ export function CustomLink({ children, ...props }: ProfileNavbarLinkProps) {
     <Button
       variant="ghost"
       className="relative after:absolute after:inset-x-0 after:-bottom-1.5 after:h-0.5 text-muted-foreground"
-      asChild
-    >
-      <Link {...props}>{children}</Link>
-    </Button>
+      render={<Link {...props}>{children}</Link>}
+    />
   )
 }
 
