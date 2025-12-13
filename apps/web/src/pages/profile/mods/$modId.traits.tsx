@@ -1,12 +1,9 @@
-import { Badge } from '@org/design-system/components/ui/badge'
 import { Button } from '@org/design-system/components/ui/button'
 import { ButtonGroup } from '@org/design-system/components/ui/button-group'
 import { Plus } from '@org/design-system/components/ui/icons'
-import { ScrollArea } from '@org/design-system/components/ui/scroll-area'
 import { z } from '@org/validation'
 import { createFileRoute } from '@tanstack/react-router'
-import { useMemo } from 'react'
-import { useGetTraits } from '@/queries/traits'
+import { useCreateTrait } from '@/queries/traits'
 import { ModTraitsList } from './-components/mod-traits-list'
 
 const traitSearchSchema = z.object({
@@ -23,6 +20,8 @@ export const Route = createFileRoute('/profile/mods/$modId/traits')({
 
 function RouteComponent() {
   const { modId } = Route.useParams()
+  const { traitType } = Route.useSearch()
+  const createTrait = useCreateTrait()
 
   return (
     <>
@@ -31,11 +30,25 @@ function RouteComponent() {
         aria-label="Traits navigation"
       >
         <TraitTypeFilter />
-        <Button aria-label="Create new trait">
+        <Button
+          aria-label="Create new trait"
+          onClick={() =>
+            createTrait.mutate(
+              {
+                cost: 1,
+                description: 'A simple description',
+                incompatibleWith: [],
+                modId: modId,
+                name: Date.now().toString(),
+              },
+              { onError: (err) => alert(err.message) },
+            )
+          }
+        >
           Create Trait <Plus />
         </Button>
       </nav>
-      <ModTraitsList modId={modId} />
+      <ModTraitsList modId={modId} activeTraitType={traitType} />
     </>
   )
 }

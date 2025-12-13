@@ -8,7 +8,7 @@ function ModTraitsListSkeleton() {
   return (
     <ul className="space-y-2 pr-3 pl-2">
       {Array.from({ length: 5 }).map((_, index) => (
-        <Skeleton className="h-20 w-full" key={index} />
+        <Skeleton className="h-16 w-full" key={index} />
       ))}
     </ul>
   )
@@ -24,28 +24,29 @@ function ModTraitsListError({ message }: { message: string }) {
 
 interface ModTraitsListProps {
   modId: string
+  activeTraitType: 'POSITIVE' | 'NEGATIVE'
 }
 
-export function ModTraitsList({ modId }: ModTraitsListProps) {
+export function ModTraitsList({ modId, activeTraitType }: ModTraitsListProps) {
   const { data: traits, isLoading, error } = useGetTraits({ modId })
 
   const activeTraits = useMemo(() => {
-    if (!traits?.length) return []
-    return traits.filter((trait) => trait)
-  }, [traits])
+    if (!traits?.data.length) return []
+    return traits.data.filter((trait) => trait.type === activeTraitType)
+  }, [traits, activeTraitType])
 
   if (isLoading) return <ModTraitsListSkeleton />
   if (error) return <ModTraitsListError message={error.message} />
 
   return (
     <ScrollArea className="h-[calc(75vh)] pr-3 pl-2">
-      <Activity mode={traits?.length ? 'hidden' : 'visible'}>
+      <Activity mode={traits?.data.length ? 'hidden' : 'visible'}>
         <p className="text-center py-8 text-muted-foreground text-sm">
           No traits found
         </p>
       </Activity>
       <Activity mode={activeTraits.length ? 'visible' : 'hidden'}>
-        <ul>
+        <ul className="space-y-2">
           {activeTraits.map((trait) => (
             <li
               key={trait.id}
