@@ -61,7 +61,7 @@ export class TraitEntity implements TraitsInterface {
   }) {
     const now = new Date()
 
-    const type = props.cost < 0 ? 'NEGATIVE' : 'POSITIVE'
+    const type = props.cost < 0 ? 'POSITIVE' : 'NEGATIVE'
 
     return new TraitEntity({
       id: randomUUIDv7(),
