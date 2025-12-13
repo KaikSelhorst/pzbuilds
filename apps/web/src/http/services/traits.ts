@@ -27,7 +27,7 @@ export async function createTrait(data: CreateTrait.Data) {
 
 export namespace GetTraits {
   export type Data = GetTraitsParamsSchema
-  export type Response = TraitsInterface[]
+  export type Response = { data: TraitsInterface[] }
 }
 
 export async function getTraits(data: GetTraits.Data) {
