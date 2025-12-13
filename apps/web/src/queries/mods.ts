@@ -18,6 +18,7 @@ export const useGetMods = () => {
   return useQuery<GetMods.Response, Error, GetMods.Response>({
     queryKey: ['get-mods'],
     queryFn: getMods,
+    staleTime: 10 * 60 * 1000,
   })
 }
 
