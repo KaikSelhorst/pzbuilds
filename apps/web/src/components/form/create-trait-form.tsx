@@ -1,13 +1,11 @@
 import { Alert, AlertTitle } from '@org/design-system/components/ui/alert'
 import { Button } from '@org/design-system/components/ui/button'
 
-import {
-  FieldGroup,
-} from '@org/design-system/components/ui/field'
+import { FieldGroup } from '@org/design-system/components/ui/field'
 import { Loader } from '@org/design-system/components/ui/icons'
 import { createTraitSchema } from '@org/validation'
 import { useParams } from '@tanstack/react-router'
-import  { useMemo } from 'react'
+import { useMemo } from 'react'
 import { useAppForm } from '@/hooks/form'
 import { useCreateTrait, useGetTraitsData } from '@/queries/traits'
 
