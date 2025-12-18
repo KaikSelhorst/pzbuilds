@@ -33,3 +33,12 @@ export const useGetTraits = (data: GetTraits.Data) => {
     staleTime: 10 * 60 * 1000,
   })
 }
+
+export const useGetTraitsData = (data: GetTraits.Data) => {
+  return useQuery<GetTraits.Response, Error, GetTraits.Response>({
+    queryKey: ['get-traits', data.modId],
+    queryFn: () => getTraits(data),
+    staleTime: 10 * 60 * 1000,
+    enabled: false,
+  })
+}
