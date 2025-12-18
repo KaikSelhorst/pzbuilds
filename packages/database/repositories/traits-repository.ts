@@ -7,7 +7,7 @@ export class TraitsRepository {
     if (!ids.length) return []
     try {
       const traits = await tx.query.traits.findMany({
-        where: { id: { arrayOverlaps: ids } },
+        where: { id: { in: ids } },
       })
       return traits
     } catch {
