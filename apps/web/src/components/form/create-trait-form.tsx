@@ -1,11 +1,15 @@
 import { Alert, AlertTitle } from '@org/design-system/components/ui/alert'
 import { Button } from '@org/design-system/components/ui/button'
-import { FieldGroup } from '@org/design-system/components/ui/field'
+
+import {
+  FieldGroup,
+} from '@org/design-system/components/ui/field'
 import { Loader } from '@org/design-system/components/ui/icons'
 import { createTraitSchema } from '@org/validation'
 import { useParams } from '@tanstack/react-router'
+import  { useMemo } from 'react'
 import { useAppForm } from '@/hooks/form'
-import { useCreateTrait } from '@/queries/traits'
+import { useCreateTrait, useGetTraitsData } from '@/queries/traits'
 
 interface CreateTraitFormProps {
   onComplete?: () => void
@@ -13,6 +17,9 @@ interface CreateTraitFormProps {
 
 export function CreateTraitForm({ onComplete }: CreateTraitFormProps) {
   const { modId } = useParams({ from: '/profile/mods/$modId' })
+
+  const { data: traits, isLoading } = useGetTraitsData({ modId })
+
   const createTrait = useCreateTrait()
 
   const form = useAppForm({
@@ -26,6 +33,12 @@ export function CreateTraitForm({ onComplete }: CreateTraitFormProps) {
     onSubmit: ({ value }) =>
       createTrait.mutate({ ...value, modId }, { onSuccess: onComplete }),
   })
+
+  const traitsMemo = useMemo(() => {
+    if (isLoading) return []
+    if (!traits) return []
+    return traits.data.map((trait) => ({ label: trait.name, value: trait.id }))
+  }, [traits])
 
   return (
     <form
@@ -64,6 +77,20 @@ export function CreateTraitForm({ onComplete }: CreateTraitFormProps) {
               label="Point Cost"
               placeholder="e.g., -4 (positive trait) or +6 (negative trait)"
               description="Negative values give points to the player (positive traits). Positive values cost points (negative traits). e.g., Strong = -4, Weak = +6"
+            />
+          )}
+        />
+        <form.AppField
+          name="incompatibleWith"
+          children={(field) => (
+            <field.MultiSelectField
+              label="Traits"
+              placeholder="Add Trait"
+              addMorePlaceholder="Add more Traits"
+              emptyMessage={
+                isLoading ? 'Searching traits...' : 'No traits found'
+              }
+              items={traitsMemo || []}
             />
           )}
         />
