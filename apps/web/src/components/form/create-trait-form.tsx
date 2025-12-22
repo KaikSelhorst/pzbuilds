@@ -51,7 +51,7 @@ export function CreateTraitForm({ onComplete }: CreateTraitFormProps) {
           name="name"
           children={(field) => (
             <field.TextField
-              label="Trait Name"
+              label="Name"
               placeholder="e.g., Strong, Weak, Claustrophobic, Brave"
             />
           )}
@@ -82,9 +82,9 @@ export function CreateTraitForm({ onComplete }: CreateTraitFormProps) {
           name="incompatibleWith"
           children={(field) => (
             <field.MultiSelectField
-              label="Traits"
-              placeholder="Add Trait"
-              addMorePlaceholder="Add more Traits"
+              label="Incompatible With"
+              placeholder="Incompatible Traits"
+              addMorePlaceholder="Add more Incompatible Traits"
               emptyMessage={
                 isLoading ? 'Searching traits...' : 'No traits found'
               }
