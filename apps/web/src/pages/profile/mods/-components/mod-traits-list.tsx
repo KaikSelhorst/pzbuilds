@@ -1,7 +1,7 @@
-import { Badge } from '@org/design-system/components/ui/badge'
 import { ScrollArea } from '@org/design-system/components/ui/scroll-area'
 import { Skeleton } from '@org/design-system/components/ui/skeleton'
 import { Activity, useMemo } from 'react'
+import { SeeTraitDetailModal } from '@/components/modal/see-trait-detail-modal'
 import { useGetTraits } from '@/queries/traits'
 
 function ModTraitsListSkeleton() {
@@ -48,23 +48,7 @@ export function ModTraitsList({ modId, activeTraitType }: ModTraitsListProps) {
       <Activity mode={activeTraits.length ? 'visible' : 'hidden'}>
         <ul className="space-y-2">
           {activeTraits.map((trait) => (
-            <li
-              key={trait.id}
-              className="border p-2 bg-card rounded-md text-card-foreground flex justify-between hover:bg-accent"
-            >
-              <div className="flex-1">
-                <h3 className="font-medium">{trait.name}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {trait.description}
-                </p>
-              </div>
-              <Badge
-                variant={trait.type === 'POSITIVE' ? 'destructive' : 'success'}
-                aria-label={`Trait cost: ${trait.type === 'POSITIVE' ? trait.cost : `+${trait.cost}`} points`}
-              >
-                {trait.type === 'POSITIVE' ? trait.cost : `+${trait.cost}`}
-              </Badge>
-            </li>
+            <SeeTraitDetailModal key={trait.id} trait={trait} />
           ))}
         </ul>
       </Activity>

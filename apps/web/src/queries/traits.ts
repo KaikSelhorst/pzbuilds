@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { queryClient } from '@/app'
 import {
   type CreateTrait,
   createTrait,
@@ -41,4 +42,11 @@ export const useGetTraitsData = (data: GetTraits.Data) => {
     staleTime: 10 * 60 * 1000,
     enabled: false,
   })
+}
+
+export const useGetTraitQueryData = (data: Pick<GetTraits.Data, 'modId'>) => {
+  return queryClient.getQueryData<GetTraits.Response>([
+    'get-traits',
+    data.modId,
+  ])
 }
