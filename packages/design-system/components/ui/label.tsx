@@ -3,7 +3,7 @@ import type * as React from 'react'
 
 function Label({ className, ...props }: React.ComponentProps<'label'>) {
   return (
-    // biome-ignore lint/a11y/noLabelWithoutControl: workaround
+    // biome-ignore lint/a11y/noLabelWithoutControl: Label can be used standalone with htmlFor attribute or as part of Field component structure
     <label
       data-slot="label"
       className={cn(

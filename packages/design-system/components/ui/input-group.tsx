@@ -9,7 +9,7 @@ import type * as React from 'react'
 
 function InputGroup({ className, ...props }: React.ComponentProps<'div'>) {
   return (
-    // biome-ignore lint/a11y/useSemanticElements: shadcn implementation
+    // biome-ignore lint/a11y/useSemanticElements: Using div with role="group" for styling flexibility while maintaining accessibility semantics
     <div
       data-slot="input-group"
       role="group"
@@ -49,8 +49,8 @@ function InputGroupAddon({
   ...props
 }: React.ComponentProps<'div'> & VariantProps<typeof inputGroupAddonVariants>) {
   return (
-    // biome-ignore lint/a11y/useSemanticElements: shadcn implementation
-    // biome-ignore lint/a11y/useKeyWithClickEvents: shadcn implementation
+    // biome-ignore lint/a11y/useSemanticElements: Using div with role="group" for styling flexibility while maintaining accessibility semantics
+    // biome-ignore lint/a11y/useKeyWithClickEvents: Click handler is used to focus the input when addon area is clicked, keyboard navigation is handled by the input element itself
     <div
       role="group"
       data-slot="input-group-addon"

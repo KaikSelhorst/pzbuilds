@@ -27,7 +27,7 @@ function ButtonGroup({
   ...props
 }: React.ComponentProps<'div'> & VariantProps<typeof buttonGroupVariants>) {
   return (
-    // biome-ignore lint/a11y/useSemanticElements: this group is only for buttons
+    // biome-ignore lint/a11y/useSemanticElements: Using div with role="group" to visually group related buttons together while maintaining accessibility semantics
     <div
       role="group"
       data-slot="button-group"

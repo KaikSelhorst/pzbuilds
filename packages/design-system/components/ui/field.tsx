@@ -72,7 +72,7 @@ function Field({
   ...props
 }: React.ComponentProps<'div'> & VariantProps<typeof fieldVariants>) {
   return (
-    // biome-ignore lint/a11y/useSemanticElements: this group is only for label, error and content
+    // biome-ignore lint/a11y/useSemanticElements: Using div with role="group" to group field label, error message, and content together for layout purposes while maintaining accessibility
     <div
       role="group"
       data-slot="field"
