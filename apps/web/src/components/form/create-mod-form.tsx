@@ -47,9 +47,9 @@ export function CreateModForm() {
       </FieldGroup>
       <Alert>
         <AlertDescription>
-          You need to provide the Mod ID. It will be used to retrieve
-          information such as the mod's preview image, name, and tags. If you
-          don't know how to find the Mod ID, check the{' '}
+          You need to provide the Mod ID from the Steam Workshop. This ID will
+          be used to retrieve information such as the mod's preview image, name,
+          and tags. If you don't know how to find the Mod ID, check the{' '}
           <a
             href="https://steamcommunity.com/sharedfiles/filedetails/?id=YOUR_MOD_ID"
             target="_blank"
@@ -73,7 +73,7 @@ export function CreateModForm() {
         </Alert>
       )}
       {createMod.data && (
-        <Alert variant="success" className="rounded-none">
+        <Alert className="rounded-none">
           <AlertTitle>Mod created successfully!</AlertTitle>
         </Alert>
       )}

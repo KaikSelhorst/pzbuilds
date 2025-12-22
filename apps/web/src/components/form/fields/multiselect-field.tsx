@@ -31,17 +31,17 @@ interface MultiSelectFieldProps {
 
 function getComboboxValue(arr1: string[], arr2: ComboboxItemValue[]) {
   const values: ComboboxItemValue[] = []
-  let foundedTraits = 0
+  let foundItems = 0
   const selectedItems = arr1.length
 
   for (let i = 0; i < arr2.length; i++) {
-    if (foundedTraits >= selectedItems) break
+    if (foundItems >= selectedItems) break
     const item = arr2[i]
 
     const itemIsSelected = arr1.find((traitId) => traitId === item.value)
 
     if (itemIsSelected) {
-      foundedTraits++
+      foundItems++
       values.push(item)
     }
   }

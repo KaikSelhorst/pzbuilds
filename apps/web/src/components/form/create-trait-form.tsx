@@ -64,7 +64,7 @@ export function CreateTraitForm({ onComplete }: CreateTraitFormProps) {
               className="resize-none"
               label="Description"
               placeholder="Describe the effects of this trait in-game. e.g., Increases strength by +2, allows carrying more items, but reduces movement speed by 10%."
-              description="Explain the benefits and drawbacks of this trait for the character in Project Zomboid"
+              description="Explain the benefits and drawbacks of this trait for the character in Project Zomboid. Describe how it affects gameplay, stats, or character behavior."
             />
           )}
         />
@@ -74,7 +74,7 @@ export function CreateTraitForm({ onComplete }: CreateTraitFormProps) {
             <field.TextField
               label="Point Cost"
               placeholder="e.g., -4 (positive trait) or +6 (negative trait)"
-              description="Negative values give points to the player (positive traits). Positive values cost points (negative traits). e.g., Strong = -4, Weak = +6"
+              description="Negative values give points to the player (positive traits). Positive values cost points (negative traits). For example: Strong = -4, Weak = +6"
             />
           )}
         />

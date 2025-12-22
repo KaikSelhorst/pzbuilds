@@ -39,7 +39,7 @@ export function ModAside({ modId }: ModAsideProps) {
 
   if (error) return <ModAsideError message={error.message} />
 
-  if (!mod) return <ModAsideError message="No Mod Data" />
+  if (!mod) return <ModAsideError message="No mod data available" />
 
   return (
     <aside className="border-b border-l p-2 h-fit">
