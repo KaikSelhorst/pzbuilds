@@ -29,11 +29,6 @@ function ThemeButton() {
 function UserMenu() {
   const { isPending, data } = auth.useSession()
 
-  // Note: This condition disables authentication in production for template purposes.
-  // Remove this condition and implement proper authentication when deploying to production.
-  const disableAuthInProduction = import.meta.env.PROD
-  if (disableAuthInProduction) return null
-
   if (isPending) return null
 
   if (!data) {
