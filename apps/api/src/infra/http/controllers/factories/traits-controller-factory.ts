@@ -18,7 +18,17 @@ function makeGetTraitsController() {
   return handler.execute.bind(handler)
 }
 
+function makeDeleteTraitController() {
+  const handler = new traitsController.deleteTrait({
+    database: database,
+    modsRepository: new ModsRepository(),
+    traitsRepository: new TraitsRepository(),
+  })
+  return handler.execute.bind(handler)
+}
+
 export const traitsControllerFactory = {
   createTrait: makeCreateTraitController(),
   getTraits: makeGetTraitsController(),
+  deleteTrait: makeDeleteTraitController(),
 }

@@ -3,6 +3,7 @@ import type { App } from '@infra/http/server'
 import {
   createTraitParamsSchema,
   createTraitSchema,
+  deleteTraitParamsSchema,
   updateModParamsSchema,
 } from '@org/validation'
 
@@ -36,6 +37,22 @@ export function traitsRoutes(app: App) {
       },
       {
         params: updateModParamsSchema,
+        tags: ['Api'],
+      },
+    )
+
+    route.delete(
+      '/:traitId',
+      async ({ status, params, user }) => {
+        const res = await traitsControllerFactory.deleteTrait({
+          params,
+          user,
+        })
+        return status(res.status, res.value)
+      },
+      {
+        auth: true,
+        params: deleteTraitParamsSchema,
         tags: ['Api'],
       },
     )

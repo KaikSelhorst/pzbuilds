@@ -1,3 +1,4 @@
+import { arrayOverlaps, eq, sql } from 'drizzle-orm'
 import type { Database } from '../database'
 import { TraitEntity } from '../entities'
 import { traits } from '../schemas'
@@ -32,6 +33,45 @@ export class TraitsRepository {
       return traits
     } catch {
       return undefined
+    }
+  }
+
+  async deleteTraitById(tx: Database, id: string) {
+    try {
+      await tx.delete(traits).where(eq(traits.id, id))
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  async getTraitByTraitIdAndModId(
+    tx: Database,
+    traitId: string,
+    modId: string,
+  ) {
+    try {
+      const trait = await tx.query.traits.findFirst({
+        where: { id: traitId, modId },
+      })
+      return trait ? new TraitEntity(trait) : undefined
+    } catch {
+      return undefined
+    }
+  }
+
+  async removeTraitIdFromAllIncompatibleWith(tx: Database, traitId: string) {
+    try {
+      await tx
+        .update(traits)
+        .set({
+          incompatibleWith: sql`array_remove(${traits.incompatibleWith}, ${traitId})`,
+        })
+        .where(arrayOverlaps(traits.incompatibleWith, [traitId]))
+        .returning()
+      return true
+    } catch {
+      return false
     }
   }
 }

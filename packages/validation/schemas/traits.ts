@@ -31,3 +31,10 @@ export const getTraitsParamsSchema = z.object({
 })
 
 export type GetTraitsParamsSchema = z.infer<typeof getTraitsParamsSchema>
+
+export const deleteTraitParamsSchema = z.object({
+  modId: z.uuidv7(),
+  traitId: z.uuidv7(),
+})
+
+export type DeleteTraitParamsSchema = z.infer<typeof deleteTraitParamsSchema>
