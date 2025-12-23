@@ -1,6 +1,19 @@
-import { Button } from '@org/design-system/components/ui/button'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@org/design-system/components/ui/breadcrumb'
+import { StripedBorder } from '@org/design-system/components/ui/striped-border'
 import { createFileRoute, Link, Outlet, redirect } from '@tanstack/react-router'
+import {
+  ProfileNavbar,
+  ProfileNavbarLink,
+} from '@/components/nav/profile-navbar'
 import { useGetMod } from '@/queries/mods'
+import { ModAside } from './-components/mod-aside'
 
 export const Route = createFileRoute('/profile/mods/$modId')({
   component: RouteComponent,
@@ -16,13 +29,17 @@ export const Route = createFileRoute('/profile/mods/$modId')({
 })
 
 function RouteComponent() {
+  const { modId } = Route.useParams()
+
   return (
-    <section className="grid grid-cols-[4fr_minmax(auto,256px)] gap-3">
-      <main className="space-y-3">
+    <section className="grid grid-cols-[4fr_minmax(auto,256px)]">
+      <div>
         <Navbar />
-        <Outlet />
-      </main>
-      <ModAside />
+        <main>
+          <Outlet />
+        </main>
+      </div>
+      <ModAside modId={modId} />
     </section>
   )
 }
@@ -30,55 +47,42 @@ function RouteComponent() {
 function Navbar() {
   const { modId } = Route.useParams()
 
-  return (
-    <nav className="space-x-2">
-      <Link to="/profile/mods/$modId/traits" params={{ modId }}>
-        {({ isActive }) => (
-          <Button variant={isActive ? 'default' : 'secondary'}>Traits</Button>
-        )}
-      </Link>
-      <Link to="/profile/mods/$modId/skills" params={{ modId }}>
-        {({ isActive }) => (
-          <Button variant={isActive ? 'default' : 'secondary'}>Skills</Button>
-        )}
-      </Link>
-    </nav>
-  )
-}
-
-function ModAside() {
-  const { modId } = Route.useParams()
-
-  const { data: mod, error, isLoading } = useGetMod({ modId })
-
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>
-  }
-
-  if (!mod) {
-    return <div>No data</div>
-  }
+  const { data: mod, isLoading, isError } = useGetMod({ modId })
 
   return (
-    <aside className="border p-2 rounded-md">
-      <img src={mod.steamMod.image} alt="" />
-      <div className="mt-2">
-        <h1 className="font-medium">{mod.steamMod.name}</h1>
-        <div>
-          {new Array(5)
-            .fill('☆')
-            .splice(0, Math.random() * 5)
-            .join('')
-            .padStart(5, '★')}
-        </div>
-        <div className="text-muted-foreground text-sm">
-          {mod.steamMod.tags.join(', ')}
-        </div>
-      </div>
-    </aside>
+    <>
+      <nav className="border-b px-4 py-2">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink render={<Link to="/profile/mods" />}>
+                Mods
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              {isError ? (
+                <BreadcrumbPage className="text-destructive">
+                  Error loading mod
+                </BreadcrumbPage>
+              ) : (
+                <BreadcrumbPage>
+                  {isLoading ? 'Loading mod details...' : mod?.name}
+                </BreadcrumbPage>
+              )}
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </nav>
+      <StripedBorder />
+      <ProfileNavbar>
+        <ProfileNavbarLink to="/profile/mods/$modId/traits" params={{ modId }}>
+          Traits
+        </ProfileNavbarLink>
+        <ProfileNavbarLink to="/profile/mods/$modId/skills" params={{ modId }}>
+          Skills
+        </ProfileNavbarLink>
+      </ProfileNavbar>
+    </>
   )
 }

@@ -23,7 +23,7 @@ function RouteComponent() {
       <section className="container py-20 md:py-32">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <div className="flex justify-center gap-2 mb-6">
-            <Badge variant="outline" appearance="light" size="lg">
+            <Badge variant="outline" className="py-1">
               <Star className="size-3.5" />
               Production Ready
             </Badge>
@@ -39,17 +39,20 @@ function RouteComponent() {
             applications.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Button size="lg" asChild>
-              <a
-                href="https://github.com/KaikSelhorst/monorepo-template/generate"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Use Template
-                <ArrowRight className="size-4" />
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
+            <Button
+              size="lg"
+              render={
+                <a
+                  href="https://github.com/KaikSelhorst/monorepo-template/generate"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Use Template
+                  <ArrowRight className="size-4" />
+                </a>
+              }
+            />
+            <Button size="lg" variant="outline">
               <a
                 href="https://github.com/KaikSelhorst/monorepo-template"
                 target="_blank"

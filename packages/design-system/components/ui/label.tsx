@@ -1,37 +1,17 @@
 import { cn } from '@org/design-system/lib/utils'
-import { cva, type VariantProps } from 'class-variance-authority'
 import type * as React from 'react'
 
-const labelVariants = cva(
-  'text-sm leading-none text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
-  {
-    variants: {
-      variant: {
-        primary: 'font-medium',
-        secondary: 'font-normal',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-    },
-  },
-)
-
-function Label({
-  className,
-  variant,
-  children,
-  ...props
-}: React.ComponentProps<'label'> & VariantProps<typeof labelVariants>) {
+function Label({ className, ...props }: React.ComponentProps<'label'>) {
   return (
-    // biome-ignore lint/a11y/noLabelWithoutControl: workaround
+    // biome-ignore lint/a11y/noLabelWithoutControl: Label can be used standalone with htmlFor attribute or as part of Field component structure
     <label
       data-slot="label"
-      className={cn(labelVariants({ variant }), className)}
+      className={cn(
+        'gap-2 text-sm leading-none font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50 flex items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed',
+        className,
+      )}
       {...props}
-    >
-      {children}
-    </label>
+    />
   )
 }
 

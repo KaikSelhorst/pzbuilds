@@ -1,19 +1,28 @@
-import { Alert, AlertTitle } from '@org/design-system/components/ui/alert'
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@org/design-system/components/ui/alert'
 import { Button } from '@org/design-system/components/ui/button'
 import { FieldGroup } from '@org/design-system/components/ui/field'
 import { Loader } from '@org/design-system/components/ui/icons'
-import { createModSchema } from '@org/validation/schemas/mod'
-
+import { createModSchema } from '@org/validation'
+import { useNavigate } from '@tanstack/react-router'
 import { useAppForm } from '@/hooks/form'
 import { useCreateMod } from '@/queries/mods'
 
 export function CreateModForm() {
   const createMod = useCreateMod()
+  const navigate = useNavigate()
 
   const form = useAppForm({
     defaultValues: { modId: '' },
     validators: { onSubmit: createModSchema },
-    onSubmit: ({ value }) => createMod.mutate(value),
+    onSubmit: ({ value }) =>
+      createMod.mutate(value, {
+        onSuccess: (res) =>
+          navigate({ to: '/profile/mods/$modId', params: { modId: res.id } }),
+      }),
   })
 
   return (
@@ -28,20 +37,29 @@ export function CreateModForm() {
         <form.AppField
           name="modId"
           children={(field) => (
-            <field.TextField label="Mod ID" placeholder="Steam Mod ID" />
+            <field.TextField
+              label="Mod ID"
+              placeholder="Enter Steam Workshop Mod ID"
+              aria-describedby="mod-id-description"
+            />
           )}
         />
       </FieldGroup>
-      <Alert variant="secondary" className="rounded-none">
-        <AlertTitle>
-          You need to provide the Mod ID. It will be used to retrieve
-          information such as the mod's preview image, name, and tags. If you
-          don't know how to find the Mod ID, check this{' '}
-          <a href="https://example.com" className="text-primary underline">
-            link
+      <Alert>
+        <AlertDescription>
+          You need to provide the Mod ID from the Steam Workshop. This ID will
+          be used to retrieve information such as the mod's preview image, name,
+          and tags. If you don't know how to find the Mod ID, check the{' '}
+          <a
+            href="https://steamcommunity.com/sharedfiles/filedetails/?id=YOUR_MOD_ID"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline hover:text-primary/80"
+          >
+            Steam Workshop documentation
           </a>
           .
-        </AlertTitle>
+        </AlertDescription>
       </Alert>
 
       <FormActions
@@ -55,12 +73,8 @@ export function CreateModForm() {
         </Alert>
       )}
       {createMod.data && (
-        <Alert variant="success" className="rounded-none">
-          <AlertTitle className="max-w-sm">
-            <code>
-              <pre>{JSON.stringify(createMod.data, null, 2)}</pre>
-            </code>
-          </AlertTitle>
+        <Alert className="rounded-none">
+          <AlertTitle>Mod created successfully!</AlertTitle>
         </Alert>
       )}
     </form>
