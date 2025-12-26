@@ -1,8 +1,8 @@
 import { database, ModsRepository, TraitsRepository } from '@org/database'
-import { traitsController } from '../traits-controller'
+import { traitsController } from '../traits'
 
 function makeCreateTraitController() {
-  const handler = new traitsController.createTrait({
+  const handler = new traitsController.create({
     database: database,
     modsRepository: new ModsRepository(),
     traitsRepository: new TraitsRepository(),
@@ -11,7 +11,7 @@ function makeCreateTraitController() {
 }
 
 function makeGetTraitsController() {
-  const handler = new traitsController.getTraits({
+  const handler = new traitsController.list({
     database: database,
     traitsRepository: new TraitsRepository(),
   })
@@ -19,7 +19,7 @@ function makeGetTraitsController() {
 }
 
 function makeDeleteTraitController() {
-  const handler = new traitsController.deleteTrait({
+  const handler = new traitsController.delete({
     database: database,
     modsRepository: new ModsRepository(),
     traitsRepository: new TraitsRepository(),
